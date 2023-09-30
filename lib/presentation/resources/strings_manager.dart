@@ -13,6 +13,7 @@ class AppStrings {
   static const String nextText = "Next";
   static const String previousText = "Previous";
   static const String skipText = "Skip";
+  static const String sendText = "Send";
   static const String getStartedText = "Get Started";
   static const String camera = "Camera";
   static const String gallery = "Gallery";
@@ -36,7 +37,10 @@ class AppStrings {
   static const String loginErrorMessage =
       "Please check your username and password";
   static const String forgotPassword = "Forgot Password?";
+  static const String forgotPasswordTitle = "Forgot Password";
+  static const String forgotPasswordDescription = "Please, enter your email address. You will receive a link to create a new password via email.";
   static const String noAccount = "No Account? Sign up";
+  static const String rememberMe = "Remember Me";
   static const String alreadyMember = "Already have an account? Login";
   static const String resendEmail = "Didn't receive an email? Resend email";
   static const String register = "Register";

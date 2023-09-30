@@ -13,6 +13,7 @@ ThemeData getApplicationTheme({required bool isDark}) {
       primaryColorDark: ColorManager.darkPrimary,
       disabledColor: ColorManager.darkGrey,
       splashColor: ColorManager.darkGrey,
+      scaffoldBackgroundColor: ColorManager.darkBackground,
 
       // 1 Card Theme
       cardTheme: const CardTheme(
@@ -23,12 +24,18 @@ ThemeData getApplicationTheme({required bool isDark}) {
 
       // 2 App bar theme
       appBarTheme: AppBarTheme(
+        backgroundColor: ColorManager.darkBackground,
         centerTitle: true,
-        color: ColorManager.darkBackground,
         elevation: AppSize.s0,
         shadowColor: ColorManager.darkGrey,
         titleTextStyle: getRegularTextStyle(
           fontSize: FontSize.s34,
+          color: ColorManager.darkWhite,
+        ),
+        actionsIconTheme: const IconThemeData(
+          color: ColorManager.darkWhite,
+        ),
+        iconTheme: const IconThemeData(
           color: ColorManager.darkWhite,
         ),
       ),
@@ -39,14 +46,15 @@ ThemeData getApplicationTheme({required bool isDark}) {
         disabledColor: ColorManager.darkGrey,
         buttonColor: ColorManager.darkPrimary,
         splashColor: ColorManager.lightPrimary,
-        
       ),
 
       // 4 Elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          textStyle: getRegularTextStyle(
-              fontSize: FontSize.s17, color: ColorManager.white),
+          textStyle: getMediumTextStyle(
+            fontSize: FontSize.s14,
+            color: ColorManager.darkWhiteSecondary,
+          ),
           backgroundColor: ColorManager.darkPrimary,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(AppSize.s25)),
@@ -84,7 +92,11 @@ ThemeData getApplicationTheme({required bool isDark}) {
           color: ColorManager.darkWhite,
           fontSize: FontSize.s14,
         ),
-        titleMedium: getRegularTextStyle(
+        titleMedium: getMediumTextStyle(
+          fontSize: FontSize.s14,
+          color: ColorManager.darkWhiteSecondary,
+        ),
+        titleSmall: getRegularTextStyle(
           fontSize: FontSize.s11,
           color: ColorManager.darkGrey,
         ),
@@ -92,6 +104,9 @@ ThemeData getApplicationTheme({required bool isDark}) {
 
       // 6 Input decoration theme
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: ColorManager.darkBlack,
+
         contentPadding: const EdgeInsets.all(AppPadding.p8),
 
         hintStyle: getMediumTextStyle(
@@ -101,9 +116,8 @@ ThemeData getApplicationTheme({required bool isDark}) {
 
         labelStyle: getMediumTextStyle(
           fontSize: FontSize.s14,
-          color: ColorManager.darkWhite,
+          color: ColorManager.darkGrey,
         ),
-
         errorStyle: getRegularTextStyle(
           fontSize: FontSize.s11,
           color: ColorManager.darkError,
@@ -144,6 +158,28 @@ ThemeData getApplicationTheme({required bool isDark}) {
           borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
         ),
       ),
+
+      // 7 Bottom navigation bar theme
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: ColorManager.darkBackground,
+        selectedItemColor: ColorManager.darkPrimary,
+        unselectedItemColor: ColorManager.darkGrey,
+        selectedLabelStyle: getRegularTextStyle(
+          fontSize: FontSize.s11,
+          color: ColorManager.darkPrimary,
+        ),
+        unselectedLabelStyle: getRegularTextStyle(
+          fontSize: FontSize.s11,
+          color: ColorManager.darkGrey,
+        ),
+      ),
+
+      // 8 text button theme
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: ColorManager.darkWhite,
+        ),
+      ),
     );
   } else {
     return ThemeData(
@@ -152,6 +188,7 @@ ThemeData getApplicationTheme({required bool isDark}) {
       primaryColorDark: ColorManager.darkPrimary,
       disabledColor: ColorManager.lightGrey,
       splashColor: ColorManager.lightGrey,
+      scaffoldBackgroundColor: ColorManager.lightBackground,
 
       // 1 Card Theme
       cardTheme: const CardTheme(
@@ -159,15 +196,21 @@ ThemeData getApplicationTheme({required bool isDark}) {
         shadowColor: ColorManager.lightGrey,
         elevation: AppSize.s4,
       ),
-      
+
       // 2 App bar theme
       appBarTheme: AppBarTheme(
+        backgroundColor: ColorManager.lightBackground,
         centerTitle: true,
-        color: ColorManager.lightBackground,
         elevation: AppSize.s0,
         shadowColor: ColorManager.lightGrey,
         titleTextStyle: getRegularTextStyle(
           fontSize: FontSize.s34,
+          color: ColorManager.lightBlack,
+        ),
+        actionsIconTheme: const IconThemeData(
+          color: ColorManager.lightBlack,
+        ),
+        iconTheme: const IconThemeData(
           color: ColorManager.lightBlack,
         ),
       ),
@@ -183,8 +226,10 @@ ThemeData getApplicationTheme({required bool isDark}) {
       // 4 Elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          textStyle: getRegularTextStyle(
-              fontSize: FontSize.s17, color: ColorManager.white),
+          textStyle: getMediumTextStyle(
+            fontSize: FontSize.s18,
+            color: ColorManager.white,
+          ),
           backgroundColor: ColorManager.lightPrimary,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(AppSize.s25)),
@@ -222,7 +267,11 @@ ThemeData getApplicationTheme({required bool isDark}) {
           color: ColorManager.lightBlack,
           fontSize: FontSize.s14,
         ),
-        titleMedium: getRegularTextStyle(
+        titleMedium: getMediumTextStyle(
+          fontSize: FontSize.s14,
+          color: ColorManager.lightFormText,
+        ),
+        titleSmall: getRegularTextStyle(
           fontSize: FontSize.s11,
           color: ColorManager.lightGrey,
         ),
@@ -230,6 +279,8 @@ ThemeData getApplicationTheme({required bool isDark}) {
 
       // 6 Input decoration theme
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: ColorManager.lightWhite,
         contentPadding: const EdgeInsets.all(AppPadding.p8),
 
         hintStyle: getMediumTextStyle(
@@ -239,7 +290,7 @@ ThemeData getApplicationTheme({required bool isDark}) {
 
         labelStyle: getMediumTextStyle(
           fontSize: FontSize.s14,
-          color: ColorManager.lightBlack,
+          color: ColorManager.lightGrey,
         ),
 
         errorStyle: getRegularTextStyle(
@@ -280,6 +331,38 @@ ThemeData getApplicationTheme({required bool isDark}) {
             width: AppSize.s1,
           ),
           borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        ),
+      ),
+
+      // 7 Bottom navigation bar theme
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: ColorManager.lightBackground,
+        selectedItemColor: ColorManager.lightPrimary,
+        unselectedItemColor: ColorManager.lightGrey,
+        selectedLabelStyle: getRegularTextStyle(
+          fontSize: FontSize.s11,
+          color: ColorManager.lightPrimary,
+        ),
+        unselectedLabelStyle: getRegularTextStyle(
+          fontSize: FontSize.s11,
+          color: ColorManager.lightGrey,
+        ),
+      ),
+
+      // 8 text button theme
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: ColorManager.lightBlack,
+          
+        ),
+      ),
+      // 9 checkbox theme
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(ColorManager.lightPrimary),
+        checkColor: MaterialStateProperty.all(ColorManager.lightWhite),
+        overlayColor: MaterialStateProperty.all(ColorManager.lightPrimary),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s4),
         ),
       ),
     );

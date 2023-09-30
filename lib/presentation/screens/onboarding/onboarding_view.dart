@@ -18,6 +18,7 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<OnboardingBloc>(context);
     return Scaffold(
+      appBar: AppBar(backgroundColor: Theme.of(context).primaryColor),
       body: SafeArea(
         child: BlocBuilder<OnboardingBloc, OnboardingStates>(
           builder: (context, state) {
@@ -51,6 +52,7 @@ class OnboardingView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
         width: MediaQuery.of(context).size.width * 0.8,
         height: AppSize.s50,
         margin: const EdgeInsets.all(AppMargin.m14),
@@ -60,7 +62,7 @@ class OnboardingView extends StatelessWidget {
                 state.currentPage == AppConstants.onboardingPages - 1) {
               return ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.login);
+                  Navigator.pushReplacementNamed(context, Routes.getStarted);
                 },
                 child: const Text(AppStrings.getStartedText),
               );
@@ -130,62 +132,55 @@ Widget getPageView({
   required String description,
   required String image,
 }) {
-  return Stack(
+  return Column(
     children: [
-      Column(
+      Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          Expanded(
+          Container(
+            height: MediaQuery.of(context).size.height * 0.4,
+            color: ColorManager.lightPrimary,
+          ),
+          Center(
             child: Container(
-              color: ColorManager.lightPrimary,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: ColorManager.lightWhite,
-            ),
-          ),
-        ],
-      ),
-      Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          width: MediaQuery.of(context).size.width * 0.8,
-          decoration: const BoxDecoration(
-            color: ColorManager.lightWhite,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: const EdgeInsets.all(AppPadding.p18),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.width * 0.8,
+              padding: const EdgeInsets.all(AppPadding.p14),
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: SvgPicture.asset(
                 image,
-                width: 200,
-                height: 200,
                 placeholderBuilder: (context) {
                   return const CircularProgressIndicator();
                 },
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                description,
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-            ],
+            ),
           ),
+        ],
+      ),
+      Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p18, vertical: AppPadding.p24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              description,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
         ),
       ),
     ],

@@ -6,14 +6,24 @@ import 'package:shopease/presentation/resources/color_manager.dart';
 import '../../resources/constants_manager.dart';
 import '../../resources/routes_manager.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
     Timer(const Duration(seconds: AppConstants.splashTime), () async {
       Navigator.pushReplacementNamed(context, Routes.onBoarding);
     });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.lightPrimary,
       body: Center(

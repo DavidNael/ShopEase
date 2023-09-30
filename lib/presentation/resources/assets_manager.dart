@@ -16,6 +16,7 @@ class ImageAssets {
   static const String shopLogoWhiteText = "$imagePath/shop_logo_white_text.svg";
   static const String shoppingLogo = "$imagePath/shopping_illustration.svg";
   static const String orderOnline = "$imagePath/order_online_illustration.svg";
+  static const String shoppingBackground = "$imagePath/shopping_background.jpg";
 }
 
 class JsonAssets {

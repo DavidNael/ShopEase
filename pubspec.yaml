@@ -52,6 +52,7 @@ flutter:
     - assets/images/shop_logo_icon.svg
     - assets/images/shop_logo_white_text.svg
     - assets/images/shop_logo_black_text.svg
+    - assets/images/shopping_background.jpg
     - assets/json/empty_animation.json
     - assets/json/error_animation.json
     - assets/json/loading_animation.json
