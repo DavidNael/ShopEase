@@ -95,6 +95,14 @@ class _GetStartedViewState extends State<GetStartedView>
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.login);
                         },
+                        style: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style
+                            ?.copyWith(
+                              backgroundColor: MaterialStateProperty.all(
+                                ColorManager.lightPrimary,
+                              ),
+                            ),
                         child: const Text(
                           AppStrings.login,
                         ),
@@ -116,6 +124,14 @@ class _GetStartedViewState extends State<GetStartedView>
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.register);
                         },
+                        style: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style
+                            ?.copyWith(
+                              backgroundColor: MaterialStateProperty.all(
+                                ColorManager.lightPrimary,
+                              ),
+                            ),
                         child: const Text(
                           AppStrings.register,
                         ),

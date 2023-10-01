@@ -14,6 +14,7 @@ class AppStrings {
   static const String previousText = "Previous";
   static const String skipText = "Skip";
   static const String sendText = "Send";
+  static const String check = "Check";
   static const String getStartedText = "Get Started";
   static const String camera = "Camera";
   static const String gallery = "Gallery";
@@ -38,7 +39,8 @@ class AppStrings {
       "Please check your username and password";
   static const String forgotPassword = "Forgot Password?";
   static const String forgotPasswordTitle = "Forgot Password";
-  static const String forgotPasswordDescription = "Please, enter your email address. You will receive a link to create a new password via email.";
+  static const String forgotPasswordDescription =
+      "Please, enter your email address. You will receive a link to create a new password via email.";
   static const String noAccount = "No Account? Sign up";
   static const String rememberMe = "Remember Me";
   static const String alreadyMember = "Already have an account? Login";
@@ -54,4 +56,11 @@ class AppStrings {
   static const String services = "Services";
   static const String resetSuccess =
       "We have sent you an email to reset your password";
+  static const String fashionSale = "Fashion\nSale";
+  static const String newArrivals = "New\nArrivals";
+
+  static const String shop = "Shop";
+  static const String bag = "Bag";
+  static const String favorites = "Favorites";
+  static const String profile = "Profile";
 }

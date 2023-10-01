@@ -14,150 +14,156 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppStrings.register,
-          style: Theme.of(context).textTheme.displayLarge,
-        ),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              WidgetsManager.textFormField(
-                hintText: 'Enter your username',
-                labelText: 'Username',
-                color: Theme.of(context).inputDecorationTheme.fillColor,
-                margin: const EdgeInsets.symmetric(vertical: AppMargin.m14),
-              ),
-              WidgetsManager.textFormField(
-                hintText: 'Enter your email',
-                labelText: 'Email',
-                color: Theme.of(context).inputDecorationTheme.fillColor,
-              ),
-              WidgetsManager.textFormField(
-                hintText: 'Enter your password',
-                labelText: 'Password',
-                color: Theme.of(context).inputDecorationTheme.fillColor,
-                margin: const EdgeInsets.symmetric(vertical: AppMargin.m14),
-                obscureText: true,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: AppSize.s54,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: AppMargin.m24),
+                  child: Text(
                     AppStrings.register,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.popAndPushNamed(context, Routes.login);
-                },
-                child: const Text(
-                  AppStrings.alreadyMember,
+                WidgetsManager.textFormField(
+                  hintText: 'Enter your username',
+                  labelText: 'Username',
+                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                  margin: const EdgeInsets.symmetric(vertical: AppMargin.m14),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: AppMargin.m50),
-                child: const Row(
+                WidgetsManager.textFormField(
+                  hintText: 'Enter your email',
+                  labelText: 'Email',
+                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                ),
+                WidgetsManager.textFormField(
+                  hintText: 'Enter your password',
+                  labelText: 'Password',
+                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                  margin: const EdgeInsets.symmetric(vertical: AppMargin.m14),
+                  obscureText: true,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: AppSize.s54,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      AppStrings.register,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.popAndPushNamed(context, Routes.login);
+                  },
+                  child: const Text(
+                    AppStrings.alreadyMember,
+                  ),
+                ),
+                const SizedBox(height: AppSize.s50),
+                Container(
+                  margin: const EdgeInsets.only(bottom: AppMargin.m14),
+                  child: const Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: ColorManager.lightGrey,
+                          thickness: AppSize.s0_5,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: AppSize.s10),
+                        child: Text(
+                          AppStrings.or,
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: ColorManager.lightGrey,
+                          thickness: AppSize.s0_5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Divider(
-                        color: ColorManager.lightGrey,
-                        thickness: AppSize.s0_5,
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: Theme.of(context)
+                          .elevatedButtonTheme
+                          .style!
+                          .copyWith(
+                            backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).inputDecorationTheme.fillColor,
+                            ),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppSize.s25,
+                                ),
+                              ),
+                            ),
+                            padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(
+                                AppPadding.p12,
+                              ),
+                            ),
+                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.p10),
+                        child: SvgPicture.asset(
+                          ImageAssets.googleLogo,
+                          width: AppSize.s40,
+                          height: AppSize.s40,
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppSize.s10),
-                      child: Text(
-                        AppStrings.or,
-                      ),
+                    const SizedBox(
+                      width: AppSize.s20,
                     ),
-                    Expanded(
-                      child: Divider(
-                        color: ColorManager.lightGrey,
-                        thickness: AppSize.s0_5,
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: Theme.of(context)
+                          .elevatedButtonTheme
+                          .style!
+                          .copyWith(
+                            backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).inputDecorationTheme.fillColor,
+                            ),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppSize.s25,
+                                ),
+                              ),
+                            ),
+                            padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(
+                                AppPadding.p12,
+                              ),
+                            ),
+                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.p10),
+                        child: SvgPicture.asset(
+                          ImageAssets.facebookLogo,
+                          width: AppSize.s40,
+                          height: AppSize.s40,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style!
-                        .copyWith(
-                          backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).inputDecorationTheme.fillColor,
-                          ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppSize.s25,
-                              ),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                            const EdgeInsets.all(
-                              AppPadding.p12,
-                            ),
-                          ),
-                        ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppPadding.p10),
-                      child: SvgPicture.asset(
-                        ImageAssets.googleLogo,
-                        width: AppSize.s40,
-                        height: AppSize.s40,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: AppSize.s20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style!
-                        .copyWith(
-                          backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).inputDecorationTheme.fillColor,
-                          ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppSize.s25,
-                              ),
-                            ),
-                          ),
-                          padding: MaterialStateProperty.all(
-                            const EdgeInsets.all(
-                              AppPadding.p12,
-                            ),
-                          ),
-                        ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppPadding.p10),
-                      child: SvgPicture.asset(
-                        ImageAssets.facebookLogo,
-                        width: AppSize.s40,
-                        height: AppSize.s40,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

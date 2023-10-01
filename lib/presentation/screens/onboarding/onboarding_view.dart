@@ -18,7 +18,6 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<OnboardingBloc>(context);
     return Scaffold(
-      appBar: AppBar(backgroundColor: Theme.of(context).primaryColor),
       body: SafeArea(
         child: BlocBuilder<OnboardingBloc, OnboardingStates>(
           builder: (context, state) {
@@ -64,6 +63,11 @@ class OnboardingView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Routes.getStarted);
                 },
+                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor: MaterialStateProperty.all(
+                        ColorManager.lightPrimary,
+                      ),
+                    ),
                 child: const Text(AppStrings.getStartedText),
               );
             } else {

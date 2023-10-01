@@ -26,6 +26,8 @@ dependencies:
   firebase_storage: ^11.2.6
   google_sign_in: ^6.1.5
   equatable: ^2.0.5
+  carousel_slider: ^4.2.1
+  shared_preferences: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +54,26 @@ flutter:
     - assets/images/shop_logo_icon.svg
     - assets/images/shop_logo_white_text.svg
     - assets/images/shop_logo_black_text.svg
+    - assets/images/navigation_bar_home_inactive.svg
+    - assets/images/navigation_bar_home_active_light.svg
+    - assets/images/navigation_bar_home_active_dark.svg
+    - assets/images/navigation_bar_shop_inactive.svg
+    - assets/images/navigation_bar_shop_active_light.svg
+    - assets/images/navigation_bar_shop_active_dark.svg
+    - assets/images/navigation_bar_bag_inactive.svg
+    - assets/images/navigation_bar_bag_active_light.svg
+    - assets/images/navigation_bar_bag_active_dark.svg
+    - assets/images/navigation_bar_heart_inactive.svg
+    - assets/images/navigation_bar_heart_active_light.svg
+    - assets/images/navigation_bar_heart_active_dark.svg
+    - assets/images/navigation_bar_profile_inactive.svg
+    - assets/images/navigation_bar_profile_active_light.svg
+    - assets/images/navigation_bar_profile_active_dark.svg
+    - assets/images/star_icon_inactive.svg
+    - assets/images/star_icon_active.svg
+    - assets/images/fashion_sale_carousel_image.png
     - assets/images/shopping_background.jpg
+    - assets/images/electronics_carousel_image.jpg
     - assets/json/empty_animation.json
     - assets/json/error_animation.json
     - assets/json/loading_animation.json

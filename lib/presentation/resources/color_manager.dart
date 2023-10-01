@@ -14,6 +14,7 @@ abstract class ColorManager {
   static const Color lightFormText = Color(0xFF2D2D2D);
   static const Color lightWhite = Color(0xFFFFFFFF);
   static const Color lightError = Color(0xFFf01f0e);
+  static const Color lightSales = Color(0xFFDB3022);
   static const Color lightSuccess = Color(0xFF2aa952);
 
   /// Dark Theme Colors

@@ -6,23 +6,38 @@ TextStyle _getTextStyle({
   FontWeight fontWeight = FontWeight.w500,
   required Color color,
   String? fontFamily,
+  TextDecoration? decoration,
+  double? decorationThickness,
+  Color? decorationColor,
 }) {
   return TextStyle(
     fontSize: fontSize,
     fontFamily: fontFamily ?? FontConstants.metropolis,
     fontWeight: fontWeight,
     color: color,
+    decoration: decoration,
+    decorationThickness: decorationThickness,
+    decorationColor: decorationColor,
   );
 }
 
 // Regular Style
-TextStyle getRegularTextStyle(
-    {required double fontSize, required Color color, String? fontFamily}) {
+TextStyle getRegularTextStyle({
+  required double fontSize,
+  required Color color,
+  String? fontFamily,
+  TextDecoration? decoration,
+  double? decorationThickness,
+  Color? decorationColor,
+}) {
   return _getTextStyle(
     fontSize: fontSize,
     fontWeight: FontWeightManager.regular,
     color: color,
     fontFamily: fontFamily,
+    decoration: decoration,
+    decorationColor: decorationColor,
+    decorationThickness: decorationThickness,
   );
 }
 

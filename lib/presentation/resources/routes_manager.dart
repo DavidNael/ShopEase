@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shopease/presentation/screens/forgot_password/forgot_password_view.dart';
 import 'package:shopease/presentation/screens/get_started/get_started_view.dart';
+import 'package:shopease/presentation/screens/homepage/homepage_layout.dart';
 import 'package:shopease/presentation/screens/onboarding/onboarding_view.dart';
 import 'package:shopease/presentation/screens/register/register_view.dart';
 import 'package:shopease/presentation/screens/splash/splash_view.dart';
@@ -25,6 +26,8 @@ class RoutesGenerator {
     switch (settings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashView());
+      case Routes.onBoarding:
+        return MaterialPageRoute(builder: (_) => const OnboardingView());
       case Routes.getStarted:
         return MaterialPageRoute(builder: (_) => const GetStartedView());
       case Routes.register:
@@ -33,8 +36,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => const LoginView());
       case Routes.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
-      case Routes.onBoarding:
-        return MaterialPageRoute(builder: (_) => const OnboardingView());
+      case Routes.main:
+        return MaterialPageRoute(builder: (_) => const HomePageLayout());
       default:
         return undefinedRoute(settings);
     }
