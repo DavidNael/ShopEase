@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
@@ -28,6 +29,8 @@ class HomeView extends StatelessWidget {
       ShoppingItem(
         image: ImageAssets.fashionSaleCarousel,
         title: AppStrings.fashionSale,
+        brand: "Nike",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         rating: 4.5,
         price: 100,
         discountPrice: 75,
@@ -35,6 +38,8 @@ class HomeView extends StatelessWidget {
       ShoppingItem(
         image: ImageAssets.electronicsCarousel,
         title: AppStrings.newArrivals,
+        brand: "Apple",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         rating: 4.3,
         price: 100,
         discountPrice: 80,
@@ -42,6 +47,8 @@ class HomeView extends StatelessWidget {
       ShoppingItem(
         image: ImageAssets.fashionSaleCarousel,
         title: AppStrings.fashionSale,
+        brand: "Nike",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         rating: 2.7,
         price: 100,
         discountPrice: 20,
@@ -49,6 +56,8 @@ class HomeView extends StatelessWidget {
       ShoppingItem(
         image: ImageAssets.electronicsCarousel,
         title: AppStrings.newArrivals,
+        brand: "Apple",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         rating: 3.5,
         price: 100,
         discountPrice: 10,
@@ -110,12 +119,16 @@ class CarouselElement {
 class ShoppingItem {
   final String image;
   final String title;
+  final String brand;
+  final String description;
   final double rating;
   final double price;
   final double discountPrice;
   ShoppingItem({
     required this.image,
     required this.title,
+    required this.brand,
+    required this.description,
     required this.rating,
     required this.price,
     required this.discountPrice,
@@ -221,110 +234,129 @@ Widget categoryItem({
   required double discountPrice,
   required double discountPercentage,
 }) {
-  return Container(
-    margin: const EdgeInsets.only(right: AppSize.s20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Stack(
-          children: [
-            Container(
-              height: AppSize.s200,
-              width: AppSize.s200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppSize.s20),
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Positioned(
-              top: AppSize.s10,
-              left: AppSize.s10,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSize.s10,
-                  vertical: AppSize.s5,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSize.s10),
-                  border: Border.all(
-                    width: AppSize.s1,
-                    color: ColorManager.black.withOpacity(AppSize.s0_5),
+  return GestureDetector(
+    onTap: () {
+      if (kDebugMode) {
+        print("Going to product page");
+      }
+    },
+    child: Container(
+      margin: const EdgeInsets.only(right: AppSize.s20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Stack(
+              children: [
+                Container(
+                  height: AppSize.s200,
+                  width: AppSize.s200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppSize.s20),
+                    image: DecorationImage(
+                      image: AssetImage(image),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  color: ThemeManager.isDark
-                      ? ColorManager.darkSales
-                      : ColorManager.lightSales,
                 ),
-                child: Text(
-                  '-$discountPercentage%',
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: ColorManager.white,
+                Positioned(
+                  top: AppSize.s10,
+                  left: AppSize.s10,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSize.s10,
+                      vertical: AppSize.s5,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSize.s10),
+                      border: Border.all(
+                        width: AppSize.s0_5,
+                        color: ColorManager.black.withOpacity(AppSize.s0_5),
                       ),
+                      color: Theme.of(context)
+                          .extension<CustomThemeExtension>()!
+                          .salesColor,
+                    ),
+                    child: Text(
+                      '-$discountPercentage%',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: ColorManager.white,
+                          ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: AppSize.s0,
-              right: AppSize.s2,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                      backgroundColor: MaterialStateProperty.all(
-                        ThemeManager.isDark
-                            ? ColorManager.darkBlack
-                            : ColorManager.lightWhite, 
-                      ),
-                      overlayColor: MaterialStateProperty.all(
-                        ThemeManager.isDark
-                            ? ColorManager.darkPrimary
-                            : ColorManager.lightPrimary,
-                      ),
-                      shape: MaterialStateProperty.all(const CircleBorder()),
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.all(
-                          AppPadding.p4,
+                Positioned(
+                  bottom: AppSize.s0,
+                  right: AppSize.s0,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: Theme.of(context)
+                        .elevatedButtonTheme
+                        .style!
+                        .copyWith(
+                          backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          overlayColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor,
+                          ),
+                          shape:
+                              MaterialStateProperty.all(const CircleBorder()),
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.all(
+                              AppPadding.p4,
+                            ),
+                          ),
                         ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p10),
+                      child: SvgPicture.asset(
+                        ImageAssets.heartInactiveIcon,
                       ),
                     ),
-                child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  child: SvgPicture.asset(
-                    ImageAssets.heartInactiveIcon,
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-        const SizedBox(height: AppSize.s10),
-        Text(
-          title,
-        ),
-        const SizedBox(height: AppSize.s10),
-        ratingStars(
-          context: context,
-          rating: rating,
-        ),
-        const SizedBox(height: AppSize.s10),
-        Row(
-          children: [
-            Text('\$$price', style: Theme.of(context).textTheme.labelSmall),
-            const SizedBox(width: AppSize.s10),
-            Text(
-              '\$$discountPrice',
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: ThemeManager.isDark
-                        ? ColorManager.darkSales
-                        : ColorManager.lightSales,
-                  ),
+          ),
+          const SizedBox(height: AppSize.s10),
+          Expanded(
+            flex: 1,
+            child: Text(
+              title,
             ),
-            const SizedBox(width: AppSize.s10),
-          ],
-        ),
-      ],
+          ),
+          // const SizedBox(height: AppSize.s10),
+          Expanded(
+            flex: 1,
+            child: ratingStars(
+              context: context,
+              rating: rating,
+            ),
+          ),
+          // const SizedBox(height: AppSize.s10),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Text('\$$price', style: Theme.of(context).textTheme.labelSmall),
+                const SizedBox(width: AppSize.s10),
+                Text(
+                  '\$$discountPrice',
+                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: Theme.of(context)
+                            .extension<CustomThemeExtension>()!
+                            .salesColor,
+                      ),
+                ),
+                const SizedBox(width: AppSize.s10),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

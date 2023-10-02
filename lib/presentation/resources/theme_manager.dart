@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:shopease/presentation/resources/shared_preference_manager.dart';
 
+import 'assets_manager.dart';
 import 'color_manager.dart';
 import 'font_manager.dart';
 import 'style_manager.dart';
@@ -126,6 +127,10 @@ abstract class ThemeManager {
             fontSize: FontSize.s11,
             color: ColorManager.darkGrey,
           ),
+          labelMedium: getSemiBoldTextStyle(
+            fontSize: FontSize.s18,
+            color: ColorManager.white,
+          ),
           labelSmall: getRegularTextStyle(
             fontSize: FontSize.s18,
             color: ColorManager.lightGrey,
@@ -230,6 +235,24 @@ abstract class ThemeManager {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: ColorManager.darkPrimary,
         ),
+
+        // 11 Icon theme
+        iconTheme: const IconThemeData(
+          color: ColorManager.darkWhite,
+        ),
+        // 00 Extension
+        extensions: const [
+          CustomThemeExtension(
+            homeIconActive: ImageAssets.homeActiveDarkIcon,
+            shopIconActive: ImageAssets.shopActiveDarkIcon,
+            bagIconActive: ImageAssets.bagActiveDarkIcon,
+            heartIconActive: ImageAssets.heartActiveDarkIcon,
+            profileIconActive: ImageAssets.profileActiveDarkIcon,
+            salesColor: ColorManager.darkSales,
+            complementaryColor: ColorManager.white,
+            themeIcon: Icons.dark_mode,
+          )
+        ],
       );
     } else {
       return ThemeData(
@@ -279,7 +302,7 @@ abstract class ThemeManager {
           style: ElevatedButton.styleFrom(
             foregroundColor: ColorManager.darkWhiteSecondary,
             textStyle: getMediumTextStyle(
-              fontSize: FontSize.s18,
+              fontSize: FontSize.s14,
               color: ColorManager.white,
             ),
             splashFactory: InkSplash.splashFactory,
@@ -327,6 +350,10 @@ abstract class ThemeManager {
           titleSmall: getRegularTextStyle(
             fontSize: FontSize.s11,
             color: ColorManager.lightGrey,
+          ),
+          labelMedium: getSemiBoldTextStyle(
+            fontSize: FontSize.s18,
+            color: ColorManager.black,
           ),
           labelSmall: getRegularTextStyle(
             fontSize: FontSize.s18,
@@ -431,7 +458,76 @@ abstract class ThemeManager {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: ColorManager.lightPrimary,
         ),
+
+        // 11 Icon theme
+        iconTheme: const IconThemeData(
+          color: ColorManager.lightBlack,
+        ),
+
+        // 00 Extension
+        extensions: const [
+          CustomThemeExtension(
+            homeIconActive: ImageAssets.homeActiveLightIcon,
+            shopIconActive: ImageAssets.shopActiveLightIcon,
+            bagIconActive: ImageAssets.bagActiveLightIcon,
+            heartIconActive: ImageAssets.heartActiveLightIcon,
+            profileIconActive: ImageAssets.profileActiveLightIcon,
+            salesColor: ColorManager.lightSales,
+            complementaryColor: ColorManager.black,
+            themeIcon: Icons.light_mode,
+          )
+        ],
       );
     }
+  }
+}
+
+class CustomThemeExtension extends ThemeExtension<CustomThemeExtension> {
+  final String homeIconActive;
+  final String shopIconActive;
+  final String bagIconActive;
+  final String heartIconActive;
+  final String profileIconActive;
+  final Color salesColor;
+  final Color complementaryColor;
+  final IconData themeIcon;
+
+  const CustomThemeExtension({
+    required this.homeIconActive,
+    required this.shopIconActive,
+    required this.bagIconActive,
+    required this.heartIconActive,
+    required this.profileIconActive,
+    required this.salesColor,
+    required this.complementaryColor,
+    required this.themeIcon,
+  });
+
+  @override
+  CustomThemeExtension copyWith({
+    String? homeIconActive,
+    String? shopIconActive,
+    String? bagIconActive,
+    String? heartIconActive,
+    String? profileIconActive,
+    Color? salesColor,
+    Color? complementaryColor,
+    IconData? themeIcon,
+  }) {
+    return CustomThemeExtension(
+      homeIconActive: homeIconActive ?? this.homeIconActive,
+      shopIconActive: shopIconActive ?? this.shopIconActive,
+      bagIconActive: bagIconActive ?? this.bagIconActive,
+      heartIconActive: heartIconActive ?? this.heartIconActive,
+      profileIconActive: profileIconActive ?? this.profileIconActive,
+      salesColor: salesColor ?? this.salesColor,
+      complementaryColor: complementaryColor ?? this.complementaryColor,
+      themeIcon: themeIcon ?? this.themeIcon,
+    );
+  }
+
+  @override
+  CustomThemeExtension lerp(covariant CustomThemeExtension? other, double t) {
+    return this;
   }
 }

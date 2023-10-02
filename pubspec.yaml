@@ -74,6 +74,18 @@ flutter:
     - assets/images/fashion_sale_carousel_image.png
     - assets/images/shopping_background.jpg
     - assets/images/electronics_carousel_image.jpg
+    - assets/images/toys_category.jpg
+    - assets/images/sports_category.jpg
+    - assets/images/kids_category.jpg
+    - assets/images/home_category.jpg
+    - assets/images/electronics_category.jpg
+    - assets/images/beauty_category.jpg
+    - assets/images/accessories_category.jpg
+    - assets/images/bags_category.jpg
+    - assets/images/shoes_category.jpg
+    - assets/images/clothes_category.jpg
+    - assets/images/pants_category.jpg
+    - assets/images/shirt_category.jpg
     - assets/json/empty_animation.json
     - assets/json/error_animation.json
     - assets/json/loading_animation.json

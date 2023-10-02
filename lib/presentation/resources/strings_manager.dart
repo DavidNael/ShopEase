@@ -15,11 +15,13 @@ class AppStrings {
   static const String skipText = "Skip";
   static const String sendText = "Send";
   static const String check = "Check";
+  static const String chooseCategory = "Choose Category";
   static const String getStartedText = "Get Started";
   static const String camera = "Camera";
   static const String gallery = "Gallery";
   static const String username = "Username";
   static const String home = "Home";
+  static const String categories = "Categories";
   static const String stores = "Stores";
   static const String notification = "Notification";
   static const String settings = "Settings";
@@ -32,7 +34,7 @@ class AppStrings {
   static const String countryCode = "Country Code";
   static const String mobileNumber = "Mobile Number";
   static const String profilePicture = "Profile Picture";
-
+  static const String viewAllItems = "View All Items";
   static const String emailEmpty = "Please enter your Email";
   static const String passwordEmpty = "Please enter your password";
   static const String loginErrorMessage =

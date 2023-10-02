@@ -51,6 +51,22 @@ class ImageAssets {
   static const String fashionSaleCarousel =
       "$imagePath/fashion_sale_carousel_image.png";
   static const String shoppingBackground = "$imagePath/shopping_background.jpg";
+
+  static const String shirtCategory = "$imagePath/shirt_category.jpg";
+  static const String shoesCategory = "$imagePath/shoes_category.jpg";
+  static const String bagsCategory = "$imagePath/bags_category.jpg";
+  static const String accessoriesCategory =
+      "$imagePath/accessories_category.jpg";
+  static const String beautyCategory = "$imagePath/beauty_category.jpg";
+  static const String electronicsCategory =
+      "$imagePath/electronics_category.jpg";
+  static const String homeCategory = "$imagePath/home_category.jpg";
+  static const String kidsCategory = "$imagePath/kids_category.jpg";
+  static const String sportsCategory = "$imagePath/sports_category.jpg";
+  static const String toysCategory = "$imagePath/toys_category.jpg";
+  static const String clothesCategory = "$imagePath/clothes_category.jpg";
+
+
   static const String electronicsCarousel =
       "$imagePath/electronics_carousel_image.jpg";
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
-import 'package:shopease/presentation/resources/color_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/theme_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
@@ -23,6 +22,8 @@ class HomePageLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // CustomThemeExtension customTheme =
+    //     Theme.of(context).extension<CustomThemeExtension>()!;
     List<Widget> body = [
       const HomeView(),
       const ShopView(),
@@ -45,10 +46,10 @@ class HomePageLayout extends StatelessWidget {
                         .add(const ThemeChangeEvent());
                   },
                   child: Icon(
-                    ThemeManager.isDark ? Icons.dark_mode : Icons.light_mode,
-                    color: ThemeManager.isDark
-                        ? ColorManager.darkBackground
-                        : ColorManager.lightBackground,
+                    Theme.of(context)
+                        .extension<CustomThemeExtension>()!
+                        .themeIcon,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                 ),
               );
@@ -63,37 +64,37 @@ class HomePageLayout extends StatelessWidget {
             items: [
               bottomNavigationBarItem(
                 inactiveIcon: ImageAssets.homeInactiveIcon,
-                activeIcon: ThemeManager.isDark
-                    ? ImageAssets.homeActiveDarkIcon
-                    : ImageAssets.homeActiveLightIcon,
+                activeIcon: Theme.of(context)
+                    .extension<CustomThemeExtension>()!
+                    .homeIconActive,
                 label: AppStrings.home,
               ),
               bottomNavigationBarItem(
                 inactiveIcon: ImageAssets.shopInactiveIcon,
-                activeIcon: ThemeManager.isDark
-                    ? ImageAssets.shopActiveDarkIcon
-                    : ImageAssets.shopActiveLightIcon,
+                activeIcon: Theme.of(context)
+                    .extension<CustomThemeExtension>()!
+                    .shopIconActive,
                 label: AppStrings.shop,
               ),
               bottomNavigationBarItem(
                 inactiveIcon: ImageAssets.bagInactiveIcon,
-                activeIcon: ThemeManager.isDark
-                    ? ImageAssets.bagActiveDarkIcon
-                    : ImageAssets.bagActiveLightIcon,
+                activeIcon: Theme.of(context)
+                    .extension<CustomThemeExtension>()!
+                    .bagIconActive,
                 label: AppStrings.bag,
               ),
               bottomNavigationBarItem(
                 inactiveIcon: ImageAssets.heartInactiveIcon,
-                activeIcon: ThemeManager.isDark
-                    ? ImageAssets.heartActiveDarkIcon
-                    : ImageAssets.heartActiveLightIcon,
+                activeIcon: Theme.of(context)
+                    .extension<CustomThemeExtension>()!
+                    .heartIconActive,
                 label: AppStrings.favorites,
               ),
               bottomNavigationBarItem(
                 inactiveIcon: ImageAssets.profileInactiveIcon,
-                activeIcon: ThemeManager.isDark
-                    ? ImageAssets.profileActiveDarkIcon
-                    : ImageAssets.profileActiveLightIcon,
+                activeIcon: Theme.of(context)
+                    .extension<CustomThemeExtension>()!
+                    .profileIconActive,
                 label: AppStrings.profile,
               ),
             ],
