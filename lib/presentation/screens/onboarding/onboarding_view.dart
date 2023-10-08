@@ -5,11 +5,11 @@ import 'package:shopease/presentation/resources/color_manager.dart';
 import 'package:shopease/presentation/resources/constants_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
-import 'package:shopease/presentation/screens/onboarding/bloc/onboarding_bloc.dart';
+import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopease/presentation/screens/onboarding/bloc/onboarding_events.dart';
+import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_events.dart';
 import '../../resources/routes_manager.dart';
-import 'bloc/onboarding_states.dart';
+import 'onboarding_bloc/onboarding_states.dart';
 
 class OnboardingView extends StatelessWidget {
   const OnboardingView({super.key});

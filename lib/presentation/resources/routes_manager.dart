@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shopease/presentation/screens/forgot_password/forgot_password_view.dart';
-import 'package:shopease/presentation/screens/get_started/get_started_view.dart';
-import 'package:shopease/presentation/screens/homepage/homepage_layout.dart';
 import 'package:shopease/presentation/screens/onboarding/onboarding_view.dart';
 import 'package:shopease/presentation/screens/register/register_view.dart';
 import 'package:shopease/presentation/screens/splash/splash_view.dart';
 
+import '../screens/forgot_password/forgot_password_view.dart';
+import '../screens/get_started/get_started_view.dart';
+import '../screens/homepage/homepage_layout.dart';
 import '../screens/login/login_view.dart';
 import 'strings_manager.dart';
 

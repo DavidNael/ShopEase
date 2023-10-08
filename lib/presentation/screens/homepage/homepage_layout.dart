@@ -5,25 +5,22 @@ import 'package:shopease/presentation/resources/assets_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/theme_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
-import 'package:shopease/presentation/screens/homepage/bloc/homepage_events.dart';
-import 'package:shopease/presentation/screens/homepage/bloc/homepage_states.dart';
 import 'package:shopease/presentation/screens/homepage/views/bag_view.dart';
 import 'package:shopease/presentation/screens/homepage/views/favorites.dart';
 import 'package:shopease/presentation/screens/homepage/views/home_view.dart';
 import 'package:shopease/presentation/screens/homepage/views/profile.dart';
 import 'package:shopease/presentation/screens/homepage/views/shop_view.dart';
-
 import '../../../app/theme_bloc/theme_bloc.dart';
 import '../../../app/theme_bloc/theme_event.dart';
-import 'bloc/homepage_bloc.dart';
+import 'homepage_bloc/homepage_bloc.dart';
+import 'homepage_bloc/homepage_events.dart';
+import 'homepage_bloc/homepage_states.dart';
 
 class HomePageLayout extends StatelessWidget {
   const HomePageLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // CustomThemeExtension customTheme =
-    //     Theme.of(context).extension<CustomThemeExtension>()!;
     List<Widget> body = [
       const HomeView(),
       const ShopView(),

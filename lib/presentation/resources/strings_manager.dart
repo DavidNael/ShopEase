@@ -14,6 +14,7 @@ class AppStrings {
   static const String previousText = "Previous";
   static const String skipText = "Skip";
   static const String sendText = "Send";
+  static const String filters = "Filters";
   static const String check = "Check";
   static const String chooseCategory = "Choose Category";
   static const String getStartedText = "Get Started";
@@ -25,6 +26,7 @@ class AppStrings {
   static const String stores = "Stores";
   static const String notification = "Notification";
   static const String settings = "Settings";
+  static const String products = "Products";
   static const String search = "Search";
   static const String email = "Email";
   static const String password = "Password";

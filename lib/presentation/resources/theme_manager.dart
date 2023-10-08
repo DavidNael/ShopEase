@@ -13,7 +13,7 @@ abstract class ThemeManager {
       SchedulerBinding.instance.platformDispatcher.platformBrightness ==
           Brightness.dark;
   static Future<bool> isDarkMode() async {
-    bool? isDarkMode = await SharedPreferenceManager.isDarkMode;
+    bool? isDarkMode = await SharedPrefManager.isDarkMode;
     isDarkMode ??=
         SchedulerBinding.instance.platformDispatcher.platformBrightness ==
             Brightness.dark;
@@ -41,6 +41,18 @@ abstract class ThemeManager {
         splashColor: ColorManager.darkGrey.withOpacity(0.5),
         scaffoldBackgroundColor: ColorManager.darkBackground,
         canvasColor: ColorManager.darkBackground,
+        colorScheme: const ColorScheme.dark(
+          primary: ColorManager.darkPrimary,
+          secondary: ColorManager.darkPrimary,
+          surface: ColorManager.darkBackground,
+          background: ColorManager.darkBackground,
+          error: ColorManager.darkError,
+          onPrimary: ColorManager.darkWhite,
+          onSecondary: ColorManager.darkWhite,
+          onSurface: ColorManager.darkWhite,
+          onBackground: ColorManager.darkWhite,
+          onError: ColorManager.darkWhite,
+        ),
         // 1 Card Theme
         cardTheme: const CardTheme(
           color: ColorManager.white,
@@ -76,15 +88,23 @@ abstract class ThemeManager {
 
         // 4 Elevated button theme
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            textStyle: getMediumTextStyle(
-              fontSize: FontSize.s14,
-              color: ColorManager.darkWhiteSecondary,
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(
+              getMediumTextStyle(
+                fontSize: FontSize.s14,
+                color: ColorManager.white,
+              ),
             ),
             splashFactory: InkSplash.splashFactory,
-            backgroundColor: ColorManager.darkPrimary,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(AppSize.s25)),
+            backgroundColor:
+                MaterialStateProperty.all(ColorManager.darkPrimary),
+            overlayColor: MaterialStateProperty.all(
+              ColorManager.darkGrey.withOpacity(0.4),
+            ),
+            shape: MaterialStateProperty.all(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(AppSize.s25)),
+              ),
             ),
           ),
         ),
@@ -263,7 +283,18 @@ abstract class ThemeManager {
         splashColor: ColorManager.lightWhite.withOpacity(0.5),
         scaffoldBackgroundColor: ColorManager.lightBackground,
         canvasColor: ColorManager.lightBackground,
-
+        colorScheme: const ColorScheme.light(
+          primary: ColorManager.lightPrimary,
+          secondary: ColorManager.lightPrimary,
+          surface: ColorManager.lightBackground,
+          background: ColorManager.lightBackground,
+          error: ColorManager.lightError,
+          onPrimary: ColorManager.lightBlack,
+          onSecondary: ColorManager.lightBlack,
+          onSurface: ColorManager.lightBlack,
+          onBackground: ColorManager.lightBlack,
+          onError: ColorManager.lightBlack,
+        ),
         // 1 Card Theme
         cardTheme: const CardTheme(
           color: ColorManager.white,
@@ -299,16 +330,23 @@ abstract class ThemeManager {
 
         // 4 Elevated button theme
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: ColorManager.darkWhiteSecondary,
-            textStyle: getMediumTextStyle(
-              fontSize: FontSize.s14,
-              color: ColorManager.white,
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(
+              getMediumTextStyle(
+                fontSize: FontSize.s14,
+                color: ColorManager.white,
+              ),
             ),
             splashFactory: InkSplash.splashFactory,
-            backgroundColor: ColorManager.lightPrimary,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(AppSize.s25)),
+            backgroundColor:
+                MaterialStateProperty.all(ColorManager.lightPrimary),
+            overlayColor: MaterialStateProperty.all(
+              ColorManager.lightGrey.withOpacity(0.4),
+            ),
+            shape: MaterialStateProperty.all(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(AppSize.s25)),
+              ),
             ),
           ),
         ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shopease/data/models/shopping_item_model.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
+import 'package:shopease/presentation/resources/color_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
+import 'package:shopease/presentation/resources/widgets_manager.dart';
 
-import 'home_view.dart';
+import '../../products/products_view.dart';
 
 List<Category> categories = [
   const Category(name: "Clothes", image: ImageAssets.clothesCategory),
@@ -18,8 +21,8 @@ List<Category> categories = [
   const Category(name: "Sports", image: ImageAssets.sportsCategory),
   const Category(name: "Toys", image: ImageAssets.toysCategory),
 ];
-List<ShoppingItem> shoppingItems = [
-  ShoppingItem(
+List<ShoppingItemModel> shoppingItems = [
+  ShoppingItemModel(
     image: "https://picsum.photos/200",
     title: "Washing Machine",
     brand: "LG",
@@ -28,8 +31,9 @@ List<ShoppingItem> shoppingItems = [
     rating: 4.5,
     price: 100,
     discountPrice: 75,
+    isFavorite: false,
   ),
-  ShoppingItem(
+  ShoppingItemModel(
     image: "https://picsum.photos/200",
     title: "Shoes",
     brand: "Nike",
@@ -37,8 +41,9 @@ List<ShoppingItem> shoppingItems = [
     rating: 4.3,
     price: 100,
     discountPrice: 80,
+    isFavorite: true,
   ),
-  ShoppingItem(
+  ShoppingItemModel(
     image: "https://picsum.photos/200",
     title: "Mobile",
     brand: "Samsung",
@@ -46,8 +51,9 @@ List<ShoppingItem> shoppingItems = [
     rating: 2.7,
     price: 100,
     discountPrice: 20,
+    isFavorite: false,
   ),
-  ShoppingItem(
+  ShoppingItemModel(
     image: "https://picsum.photos/200",
     title: "Shirt",
     brand: "Polo",
@@ -55,6 +61,27 @@ List<ShoppingItem> shoppingItems = [
     rating: 3.5,
     price: 100,
     discountPrice: 10,
+    isFavorite: true,
+  ),
+  ShoppingItemModel(
+    image: "https://picsum.photos/200",
+    title: "Shirt",
+    brand: "Polo",
+    description: "Polo Shirt",
+    rating: 3.5,
+    price: 100,
+    discountPrice: 10,
+    isFavorite: true,
+  ),
+  ShoppingItemModel(
+    image: "https://picsum.photos/200",
+    title: "Shirt",
+    brand: "Polo",
+    description: "Polo Shirt",
+    rating: 3.5,
+    price: 100,
+    discountPrice: 10,
+    isFavorite: true,
   ),
 ];
 
@@ -98,8 +125,11 @@ Widget categoryView({required BuildContext context}) {
         height: AppSize.s44,
         child: ElevatedButton(
           onPressed: () {},
-          child: const Text(
+          child: Text(
             AppStrings.viewAllItems,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: ColorManager.white,
+                ),
           ),
         ),
       ),
@@ -129,6 +159,7 @@ Widget viewCategories({required List<Category> categories}) {
     child: ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
+      physics: const BouncingScrollPhysics(),
       itemCount: categories.length,
       itemBuilder: (context, index) {
         return Container(
@@ -136,7 +167,14 @@ Widget viewCategories({required List<Category> categories}) {
           child: Column(
             children: [
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProductsView(),
+                    ),
+                  );
+                },
                 visualDensity: const VisualDensity(vertical: 4),
                 title: Text(categories[index].name),
                 leading: ClipRRect(
@@ -176,7 +214,7 @@ Widget viewCategories({required List<Category> categories}) {
   );
 }
 
-Widget itemsList({required List<ShoppingItem> items}) {
+Widget itemsList({required List<ShoppingItemModel> items}) {
   return Expanded(
     child: ListView.builder(
       shrinkWrap: true,
@@ -201,7 +239,7 @@ Widget itemsList({required List<ShoppingItem> items}) {
                     children: [
                       Text(items[index].title),
                       Text(items[index].brand),
-                      ratingStars(
+                      WidgetsManager.ratingStars(
                           context: context, rating: items[index].rating),
                       Text("${items[index].price}\$"),
                     ],

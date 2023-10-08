@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopease/app/theme_bloc/theme_bloc.dart';
 import 'package:shopease/presentation/resources/constants_manager.dart';
-import 'package:shopease/presentation/screens/homepage/bloc/homepage_bloc.dart';
-import 'package:shopease/presentation/screens/onboarding/bloc/onboarding_bloc.dart';
-
+import 'package:shopease/presentation/screens/login/login_bloc/login_bloc.dart';
+import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_bloc.dart';
+import 'package:shopease/presentation/screens/register/register_bloc/register_bloc.dart';
 import '../presentation/resources/routes_manager.dart';
+import '../presentation/screens/homepage/homepage_bloc/homepage_bloc.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,6 +18,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<OnboardingBloc>(
           create: (context) =>
               OnboardingBloc(pageLength: AppConstants.onboardingPages),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(),
+        ),
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(),
         ),
         BlocProvider<HomePageBloc>(
           create: (context) => HomePageBloc(),

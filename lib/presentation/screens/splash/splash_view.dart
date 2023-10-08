@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     Provider.of<ThemeBloc>(context, listen: false).add(const GetThemeEvent());
     Timer(const Duration(seconds: AppConstants.splashTime), () async {
-      Navigator.pushReplacementNamed(context, Routes.onBoarding);
+      Navigator.pushReplacementNamed(context, Routes.main);
     });
     super.initState();
   }

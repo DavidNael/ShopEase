@@ -12,7 +12,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeData> {
     });
     on<ThemeChangeEvent>((event, emit) async {
       final isDarkMode = await ThemeManager.isDarkMode();
-      SharedPreferenceManager.setDarkMode(!isDarkMode);
+      SharedPrefManager.setDarkMode(!isDarkMode);
       ThemeManager.isDark = !isDarkMode;
       emit(ThemeManager.getApplicationTheme(isDarkMode: !isDarkMode));
     });

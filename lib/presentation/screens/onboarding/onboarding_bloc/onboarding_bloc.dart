@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
-import 'package:shopease/presentation/screens/onboarding/bloc/onboarding_events.dart';
-import 'package:shopease/presentation/screens/onboarding/bloc/onboarding_states.dart';
+import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_events.dart';
+import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_states.dart';
 
 class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingStates> {
   int currentPage = 0;
