@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app/app.dart';
+import 'app/dep_injection.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,5 +14,6 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  await initAppModule();
   runApp(const MyApp());
 }

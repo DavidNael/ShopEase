@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class ShoppingItemModel {
   final String image;
   final String title;
@@ -7,6 +9,10 @@ class ShoppingItemModel {
   final double price;
   final double discountPrice;
   final bool isFavorite;
+  final DateTime date =
+      DateTime.now().subtract(Duration(days: Random().nextInt(30)));
+  final int popularity = Random().nextInt(100);
+
   ShoppingItemModel({
     required this.image,
     required this.title,

@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:shopease/data/models/carousel_model.dart';
-import 'package:shopease/data/models/shopping_item_model.dart';
-import 'package:shopease/presentation/resources/assets_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopease/domain/models/carousel_model.dart';
 import 'package:shopease/presentation/resources/color_manager.dart';
 import 'package:shopease/presentation/resources/font_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/style_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
-import 'package:shopease/presentation/resources/widgets_manager.dart';
+
+import '../../../resources/widgets_manager.dart';
+import '../../error_screen/error_screen.dart';
+import '../../products/products_bloc/products_bloc.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -17,56 +20,28 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<CarouselModel> carouselItems = [
       CarouselModel(
-        image: ImageAssets.fashionSaleCarousel,
+        image:
+            'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
         title: AppStrings.fashionSale,
       ),
       CarouselModel(
-        image: ImageAssets.electronicsCarousel,
+        image:
+            "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
         title: AppStrings.newArrivals,
       ),
     ];
-    List<ShoppingItemModel> shoppingItems = [
-      ShoppingItemModel(
-        image: ImageAssets.fashionSaleCarousel,
-        title: AppStrings.fashionSale,
-        brand: "Nike",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        rating: 4.5,
-        price: 100,
-        discountPrice: 75,
-        isFavorite: true,
-      ),
-      ShoppingItemModel(
-        image: ImageAssets.electronicsCarousel,
-        title: AppStrings.newArrivals,
-        brand: "Apple",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        rating: 4.3,
-        price: 100,
-        discountPrice: 80,
-        isFavorite: false,
-      ),
-      ShoppingItemModel(
-        image: ImageAssets.fashionSaleCarousel,
-        title: AppStrings.fashionSale,
-        brand: "Nike",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        rating: 2.7,
-        price: 100,
-        discountPrice: 20,
-        isFavorite: true,
-      ),
-      ShoppingItemModel(
-        image: ImageAssets.electronicsCarousel,
-        title: AppStrings.newArrivals,
-        brand: "Apple",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        rating: 3.5,
-        price: 100,
-        discountPrice: 10,
-        isFavorite: false,
-      ),
-    ];
+
+    // context.read<ProductsBloc>().add(
+    //       ProductsEvent.getProducts([
+    //         ProductsRequest(
+    //           sort: "itemUpdateDate.desc",
+    //         ),
+    //         ProductsRequest(
+    //           options: "(onSale=true)",
+    //           sort: "itemUpdateDate.desc",
+    //         ),
+    //       ]),
+    //     );
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -78,11 +53,13 @@ class HomeView extends StatelessWidget {
               return carouselElement(
                 context: context,
                 image: carouselItems[index].image,
+                fitBox: true,
                 title: carouselItems[index].title,
+                padding: EdgeInsets.zero,
               );
             },
             options: CarouselOptions(
-              height: AppSize.s400,
+              height: AppSize.s300,
               viewportFraction: 1,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 10),
@@ -93,45 +70,113 @@ class HomeView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: AppMargin.m24),
-            child: WidgetsManager.categorySlider(
-              context: context,
-              title: "New",
-              description: "You've never seen it before",
-              items: shoppingItems,
-            ),
-          ),
-          Container(
-            child: WidgetsManager.categorySlider(
-              context: context,
-              title: "Sale",
-              description: "Super summer sale",
-              items: shoppingItems,
-            ),
-          ),
+          FutureBuilder(
+            future: context.read<ProductsBloc>().initHomeProducts(),
+            builder: (context, state) {
+              if (state.hasError) {
+                return error(state.error.toString());
+              }
+              switch (state.connectionState) {
+                case ConnectionState.waiting:
+                  return loading(context);
+                case ConnectionState.done:
+                  return homeView(context: context);
+                default:
+                  return loading(context);
+              }
+            },
+          )
         ],
       ),
     );
   }
 }
 
+Widget homeView({
+  required BuildContext context,
+  // required List<ShoppingItemModel> newProducts,
+  // required List<ShoppingItemModel> saleProducts,
+}) {
+  return Column(
+    children: [
+      Container(
+        margin: const EdgeInsets.symmetric(vertical: AppMargin.m24),
+        child: WidgetManager.productsSlider(
+          context: context,
+          title: "New",
+          description: "You've never seen it before",
+          items: context.watch<ProductsBloc>().newProducts!.products,
+        ),
+      ),
+      Container(
+        child: WidgetManager.productsSlider(
+          context: context,
+          title: "Sale",
+          description: "Super summer sale",
+          items: context.watch<ProductsBloc>().onSaleProducts!.products,
+        ),
+      )
+    ],
+  );
+}
+
+Widget loading(context) {
+  return Column(
+    children: [
+      WidgetManager.categorySliderShimmer(context: context),
+      WidgetManager.categorySliderShimmer(context: context),
+    ],
+  );
+}
+
+Widget error(String message) {
+  return ErrorScreen(
+    message: message,
+  );
+}
+
 Widget carouselElement({
   required BuildContext context,
   required String image,
   required String title,
+  EdgeInsetsGeometry? padding,
+  bool fitBox = false,
+  bool showButton = true,
+  double imageHeight = AppSize.s400,
 }) {
-  return SizedBox(
-    height: AppSize.s400,
+  return Container(
+    height: imageHeight,
+    padding: padding ?? const EdgeInsets.all(AppPadding.p8),
+    decoration: BoxDecoration(
+      color: ColorManager.transparent,
+      borderRadius: BorderRadius.circular(AppSize.s8),
+    ),
     child: Stack(
       children: [
-        Image.asset(
-          image,
-          fit: BoxFit.cover,
-          width: AppSize.infinity,
-        ),
+        ClipRRect(
+            borderRadius: BorderRadius.circular(AppSize.s8),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: fitBox ? BoxFit.cover : null,
+              progressIndicatorBuilder: (context, url, downloadProgress) {
+                return Padding(
+                  padding: const EdgeInsets.all(AppPadding.p12),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                    ),
+                  ),
+                );
+              },
+              alignment: Alignment.topCenter,
+              height: imageHeight,
+              width: double.infinity,
+            )),
         Container(
-          color: ColorManager.black.withOpacity(AppSize.s0_5),
+          decoration: BoxDecoration(
+            color: ColorManager.black.withOpacity(AppSize.s0_4),
+            borderRadius: BorderRadius.circular(AppSize.s8),
+          ),
         ),
         Positioned(
           bottom: AppSize.s0,
@@ -146,20 +191,21 @@ Widget carouselElement({
                   color: ColorManager.white,
                 ),
               ),
-              Container(
-                height: AppSize.s34,
-                width: AppSize.s140,
-                margin: const EdgeInsets.symmetric(vertical: AppSize.s20),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    AppStrings.check,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: ColorManager.white,
-                        ),
+              if (showButton)
+                Container(
+                  height: AppSize.s34,
+                  width: AppSize.s140,
+                  margin: const EdgeInsets.symmetric(vertical: AppSize.s20),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      AppStrings.check,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: ColorManager.white,
+                          ),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

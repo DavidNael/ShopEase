@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget {
             child: BlocConsumer<LoginBloc, LoginState>(
               listener: (context, state) {
                 if (state is LoginLoadingState) {
-                  WidgetsManager.showLoadingDialog(
+                  WidgetManager.showLoadingDialog(
                     context: context,
                     message: AppStrings.loading,
                   );
@@ -41,7 +41,7 @@ class LoginView extends StatelessWidget {
                 }
                 if (state is LoginFailureState) {
                   Navigator.pop(context);
-                  WidgetsManager.showMessageDialog(
+                  WidgetManager.showMessageDialog(
                     context: context,
                     title: "Login Failed",
                     message: state.error,
@@ -74,7 +74,7 @@ Widget loginWidget(BuildContext context) {
       ),
 
       /// Email Text Field
-      WidgetsManager.textFormField(
+      WidgetManager.textFormField(
         controller: context.read<LoginBloc>().emailController,
         hintText: 'Enter your email',
         labelText: 'Email',
@@ -82,7 +82,7 @@ Widget loginWidget(BuildContext context) {
       ),
 
       /// Password Text Field
-      WidgetsManager.textFormField(
+      WidgetManager.textFormField(
         controller: context.read<LoginBloc>().passwordController,
         hintText: 'Enter your password',
         labelText: 'Password',

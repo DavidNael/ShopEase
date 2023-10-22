@@ -26,7 +26,7 @@ class RegisterView extends StatelessWidget {
             child: BlocConsumer<RegisterBloc, RegisterState>(
               listener: (context, state) {
                 if (state is RegisterLoadingState) {
-                  WidgetsManager.showLoadingDialog(
+                  WidgetManager.showLoadingDialog(
                     context: context,
                     message: AppStrings.loading,
                   );
@@ -37,7 +37,7 @@ class RegisterView extends StatelessWidget {
                 }
                 if (state is RegisterFailureState) {
                   Navigator.pop(context);
-                  WidgetsManager.showMessageDialog(
+                  WidgetManager.showMessageDialog(
                     context: context,
                     title: "Register Failed",
                     message: state.error,
@@ -57,7 +57,7 @@ class RegisterView extends StatelessWidget {
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
-                    WidgetsManager.textFormField(
+                    WidgetManager.textFormField(
                       controller:
                           context.read<RegisterBloc>().usernameController,
                       hintText: 'Enter your username',
@@ -66,13 +66,13 @@ class RegisterView extends StatelessWidget {
                       margin:
                           const EdgeInsets.symmetric(vertical: AppMargin.m14),
                     ),
-                    WidgetsManager.textFormField(
+                    WidgetManager.textFormField(
                       controller: context.read<RegisterBloc>().emailController,
                       hintText: 'Enter your email',
                       labelText: 'Email',
                       color: Theme.of(context).inputDecorationTheme.fillColor,
                     ),
-                    WidgetsManager.textFormField(
+                    WidgetManager.textFormField(
                       controller:
                           context.read<RegisterBloc>().passwordController,
                       hintText: 'Enter your password',

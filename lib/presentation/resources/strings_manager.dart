@@ -10,14 +10,19 @@ class AppStrings {
   static const String onBoardingDescription3 =
       "Embrace simplicity. With ShopEase, you can browse, choose, and buy with ease, all from the comfort of your home. Get started now!";
   static const String undefinedRoute = "Undefined Route...";
-  static const String nextText = "Next";
-  static const String previousText = "Previous";
-  static const String skipText = "Skip";
-  static const String sendText = "Send";
+  static const String next = "Next";
+  static const String previous = "Previous";
+  static const String skip = "Skip";
+  static const String send = "Send";
+  static const String resend = "Resend";
+  static const String done = "Done";
+  static const String size = "Size";
+  static const String color = "Color";
   static const String filters = "Filters";
   static const String check = "Check";
   static const String chooseCategory = "Choose Category";
-  static const String getStartedText = "Get Started";
+  static const String addToCart = "add to cart";
+  static const String getStarted = "Get Started";
   static const String camera = "Camera";
   static const String gallery = "Gallery";
   static const String username = "Username";
@@ -27,6 +32,8 @@ class AppStrings {
   static const String notification = "Notification";
   static const String settings = "Settings";
   static const String products = "Products";
+  static const String readMore = "Read More";
+  static const String readLess = "Read Less";
   static const String search = "Search";
   static const String email = "Email";
   static const String password = "Password";
@@ -67,4 +74,5 @@ class AppStrings {
   static const String bag = "Bag";
   static const String favorites = "Favorites";
   static const String profile = "Profile";
+  static const String somethingWrongText = "Something went wrong please try again later";
 }

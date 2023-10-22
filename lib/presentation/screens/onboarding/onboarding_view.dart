@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
 import 'package:shopease/presentation/resources/color_manager.dart';
-import 'package:shopease/presentation/resources/constants_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
 import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_events.dart';
+import '../../../app/constants.dart';
 import '../../resources/routes_manager.dart';
 import 'onboarding_bloc/onboarding_states.dart';
 
@@ -68,7 +68,7 @@ class OnboardingView extends StatelessWidget {
                         ColorManager.lightPrimary,
                       ),
                     ),
-                child: const Text(AppStrings.getStartedText),
+                child: const Text(AppStrings.getStarted),
               );
             } else {
               return Row(
@@ -81,7 +81,7 @@ class OnboardingView extends StatelessWidget {
                         bloc.add(OnboardingPreviousPageEvent());
                       },
                       child: Text(
-                        AppStrings.previousText,
+                        AppStrings.previous,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
@@ -113,7 +113,7 @@ class OnboardingView extends StatelessWidget {
                         bloc.add(OnboardingNextPageEvent());
                       },
                       child: Text(
-                        AppStrings.nextText,
+                        AppStrings.next,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               color: ColorManager.lightPrimary,
                             ),

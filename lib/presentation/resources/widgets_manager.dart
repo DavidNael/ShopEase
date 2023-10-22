@@ -1,15 +1,20 @@
+import 'dart:math';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:shopease/domain/models/products_model.dart';
 import 'package:shopease/presentation/resources/theme_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
 
-import '../../data/models/category_model.dart';
-import '../../data/models/shopping_item_model.dart';
+import '../../domain/models/category_model.dart';
+import '../screens/products/product_view.dart';
 import 'assets_manager.dart';
 import 'color_manager.dart';
 
-abstract class WidgetsManager {
+abstract class WidgetManager {
   static Widget outlinedElevatedButton({
     required BuildContext context,
     required Widget child,
@@ -98,32 +103,31 @@ abstract class WidgetsManager {
     required BuildContext context,
     required bool isActive,
     required VoidCallback onPressed,
+    Color? backgroundColor,
     Color? overlayColor,
     String? activeIcon,
     String? inactiveIcon,
     EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? iconPadding,
+    double? elevation,
+    double? iconSize,
   }) {
-    return ElevatedButton(
+    return customElevatedButton(
+      context: context,
       onPressed: onPressed,
-      style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-            backgroundColor: MaterialStateProperty.all(
-              Theme.of(context).inputDecorationTheme.fillColor,
-            ),
-            overlayColor: MaterialStateProperty.all(
-              overlayColor ?? Theme.of(context).primaryColor,
-            ),
-            shape: MaterialStateProperty.all(const CircleBorder()),
-            padding: MaterialStateProperty.all(
-              EdgeInsets.zero,
-            ),
-            elevation: MaterialStateProperty.all(AppSize.s6),
-          ),
+      backgroundColor:
+          backgroundColor ?? Theme.of(context).inputDecorationTheme.fillColor,
+      overlayColor: overlayColor ?? Theme.of(context).primaryColor,
+      shape: const CircleBorder(),
+      padding: padding ?? const EdgeInsets.all(AppPadding.p10),
+      elevation: elevation ?? AppSize.s6,
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(AppPadding.p10),
+        padding: iconPadding ?? EdgeInsets.zero,
         child: SvgPicture.asset(
           isActive
               ? activeIcon ?? ImageAssets.heartInactiveIcon
               : inactiveIcon ?? ImageAssets.heartActiveDarkIcon,
+          height: iconSize,
         ),
       ),
     );
@@ -131,7 +135,7 @@ abstract class WidgetsManager {
 
   static Widget discountPrice({
     required BuildContext context,
-    required double price,
+    required double discountPercentage,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -147,7 +151,7 @@ abstract class WidgetsManager {
         color: Theme.of(context).extension<CustomThemeExtension>()!.salesColor,
       ),
       child: Text(
-        '-$price%',
+        '-$discountPercentage%',
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: ColorManager.white,
             ),
@@ -158,6 +162,7 @@ abstract class WidgetsManager {
   static Widget ratingStars({
     required BuildContext context,
     required double rating,
+    required int ratingCount,
   }) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -174,7 +179,7 @@ abstract class WidgetsManager {
             ),
           ),
         Text(
-          '($rating)',
+          '$rating ($ratingCount)',
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ],
@@ -187,133 +192,194 @@ abstract class WidgetsManager {
     required Widget child,
     TextStyle? textStyle,
     Color? backgroundColor,
-    Color? splashColor,
+    Color? overlayColor,
+    double? width,
+    double? height,
     double? elevation,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
     BorderRadiusGeometry? borderRadius,
     OutlinedBorder? shape,
   }) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-            backgroundColor: backgroundColor == null
-                ? null
-                : MaterialStatePropertyAll(backgroundColor),
-            overlayColor: splashColor == null
-                ? Theme.of(context).elevatedButtonTheme.style!.overlayColor
-                : MaterialStatePropertyAll(splashColor),
-            elevation:
-                elevation == null ? null : MaterialStatePropertyAll(elevation),
-            shape: shape == null
-                ? Theme.of(context).elevatedButtonTheme.style!.shape
-                : MaterialStatePropertyAll(shape),
-          ),
-      child: child,
+    return Container(
+      width: width,
+      height: height,
+      margin: margin,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+              backgroundColor: MaterialStatePropertyAll(backgroundColor),
+              overlayColor: MaterialStatePropertyAll(overlayColor),
+              elevation: MaterialStatePropertyAll(elevation),
+              shape: MaterialStatePropertyAll(shape),
+              padding: MaterialStatePropertyAll(padding),
+            ),
+        child: child,
+      ),
     );
   }
 
-  static Widget categoryItem({
+  static Widget productSliderItem({
     required BuildContext context,
-    required ShoppingItemModel item,
+    required ProductModel product,
     required bool isFavorite,
+    bool isNetwork = true,
     required VoidCallback onPressedFavorite,
   }) {
-    return GestureDetector(
-      onTap: () {
+    return customElevatedButton(
+      context: context,
+      backgroundColor: ColorManager.transparent,
+      elevation: 0,
+      padding: EdgeInsets.zero,
+      margin: const EdgeInsets.only(right: AppSize.s20),
+      width: AppSize.s200,
+      onPressed: () {
         if (kDebugMode) {
           print("Going to product page");
         }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              // context
+              //     .read<ProductsBloc>()
+              //     .add(ProductsEvent.getProducts([ProductsRequest()]));
+              return ProductView(item: product);
+            },
+          ),
+        );
       },
-      child: Container(
-        margin: const EdgeInsets.only(right: AppSize.s20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              flex: 5,
-              child: Stack(
-                children: [
-                  Container(
-                    height: AppSize.s200,
-                    width: AppSize.s200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s20),
-                      image: DecorationImage(
-                        image: AssetImage(item.image),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Stack(
+              children: [
+                Container(
+                  height: AppSize.s200,
+                  width: AppSize.s200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppSize.s12),
                   ),
-                  Positioned(
-                    top: AppSize.s10,
-                    left: AppSize.s10,
-                    child: WidgetsManager.discountPrice(
-                      context: context,
-                      price: item.discountPercentage,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: AppSize.s0,
-                    right: AppSize.s0,
-                    child: WidgetsManager.hoveringIconWidget(
-                      context: context,
-                      isActive: isFavorite,
-                      onPressed: onPressedFavorite,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSize.s10),
-            Expanded(
-              flex: 1,
-              child: Text(
-                item.title,
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: WidgetsManager.ratingStars(
-                context: context,
-                rating: item.rating,
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: [
-                  Text('\$${item.price}',
-                      style: Theme.of(context).textTheme.labelSmall),
-                  const SizedBox(width: AppSize.s10),
-                  Text(
-                    '\$${item.discountPrice}',
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          color: Theme.of(context)
-                              .extension<CustomThemeExtension>()!
-                              .salesColor,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(AppSize.s12),
+                      child: CachedNetworkImage(
+                        imageUrl: product.images.isNotEmpty
+                            ? product.images[0].href
+                            : "https://placehold.co/600x400/png",
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) {
+                          return Padding(
+                            padding: const EdgeInsets.all(AppPadding.p12),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value: downloadProgress.progress,
+                              ),
+                            ),
+                          );
+                        },
+                        height: product.images.isNotEmpty
+                            ? double.parse(product.images[0].height)
+                            : null,
+                        width: product.images.isNotEmpty
+                            ? double.parse(product.images[0].width)
+                            : null,
+                        errorWidget: (context, url, error) {
+                          return Text(error.toString());
+                        },
+                        // fit: BoxFit.cover,
+                      )),
+                ),
+                product.discountPercentage == 0
+                    ? Container()
+                    : Positioned(
+                        top: AppSize.s10,
+                        left: AppSize.s10,
+                        child: discountPrice(
+                          context: context,
+                          discountPercentage: product.discountPercentage,
                         ),
+                      ),
+                Positioned(
+                  bottom: AppSize.s0,
+                  right: AppSize.s0,
+                  child: hoveringIconWidget(
+                    context: context,
+                    isActive: isFavorite,
+                    onPressed: onPressedFavorite,
                   ),
-                  const SizedBox(width: AppSize.s10),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: AppSize.s10),
+          Expanded(
+            flex: 1,
+            child: Text(
+              product.name,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: ratingStars(
+              context: context,
+              rating: product.customerReviewAverage,
+              ratingCount: product.customerReviewCount,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Text('\$${product.regularPrice}',
+                    style: product.discountPercentage == 0
+                        ? Theme.of(context).textTheme.displaySmall
+                        : Theme.of(context).textTheme.labelSmall),
+                const SizedBox(width: AppSize.s10),
+                product.discountPercentage == 0
+                    ? Container()
+                    : Text(
+                        '\$${product.salePrice}',
+                        style:
+                            Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  color: Theme.of(context)
+                                      .extension<CustomThemeExtension>()!
+                                      .salesColor,
+                                ),
+                      ),
+                const SizedBox(width: AppSize.s10),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   static Widget productInList({
     required BuildContext context,
-    required ShoppingItemModel item,
+    required ProductModel product,
   }) {
     return Stack(
       children: [
         Container(
-          height: AppSize.s120,
+          height: AppSize.s130,
           padding: const EdgeInsets.only(bottom: AppSize.s20),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProductView(item: product);
+                  },
+                ),
+              );
+            },
             style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
                   padding: MaterialStateProperty.all(
                     const EdgeInsets.all(0),
@@ -334,9 +400,30 @@ abstract class WidgetsManager {
                   flex: 1,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(AppSize.s8),
-                    child: Image.network(
-                      "https://picsum.photos/200/300",
-                      fit: BoxFit.cover,
+                    child: CachedNetworkImage(
+                      imageUrl: product.images.isNotEmpty
+                          ? product.images[0].href
+                          : "https://placehold.co/600x400/png",
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) {
+                        return Padding(
+                          padding: const EdgeInsets.all(AppPadding.p12),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                            ),
+                          ),
+                        );
+                      },
+                      height: product.images.isNotEmpty
+                          ? double.parse(product.images[0].height)
+                          : null,
+                      width: product.images.isNotEmpty
+                          ? double.parse(product.images[0].width)
+                          : null,
+                      errorWidget: (context, url, error) {
+                        return Text(error.toString());
+                      },
                     ),
                   ),
                 ),
@@ -350,25 +437,29 @@ abstract class WidgetsManager {
                       children: [
                         Expanded(
                           child: Text(
-                            item.title,
+                            product.name,
                             style: Theme.of(context).textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
                           ),
                         ),
                         Text(
-                          item.brand,
+                          product.manufacturer,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppPadding.p8,
+                          padding: const EdgeInsets.only(
+                            top: AppPadding.p4,
+                            bottom: AppPadding.p8,
                           ),
-                          child: WidgetsManager.ratingStars(
+                          child: ratingStars(
                             context: context,
-                            rating: item.rating,
+                            rating: product.customerReviewAverage,
+                            ratingCount: product.customerReviewCount,
                           ),
                         ),
                         Text(
-                          "${item.price}\$",
+                          "${product.regularPrice}\$",
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
@@ -386,9 +477,9 @@ abstract class WidgetsManager {
           bottom: AppSize.s0,
           child: Padding(
             padding: const EdgeInsets.all(AppPadding.p8),
-            child: WidgetsManager.hoveringIconWidget(
+            child: hoveringIconWidget(
               context: context,
-              isActive: item.isFavorite,
+              isActive: product.isNew,
               onPressed: () {},
             ),
           ),
@@ -409,7 +500,7 @@ abstract class WidgetsManager {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
-            child: WidgetsManager.customElevatedButton(
+            child: customElevatedButton(
               onPressed: () {},
               backgroundColor: Theme.of(context)
                   .extension<CustomThemeExtension>()!
@@ -426,29 +517,29 @@ abstract class WidgetsManager {
   }
 
   static Widget productsList({
-    required List<ShoppingItemModel> shoppingItems,
+    required List<ProductModel> products,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: shoppingItems.length,
+        itemCount: products.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return WidgetsManager.productInList(
+          return productInList(
             context: context,
-            item: shoppingItems[index],
+            product: products[index],
           );
         },
       ),
     );
   }
 
-  static Widget categorySlider({
+  static Widget productsSlider({
     required BuildContext context,
     required String title,
     required String description,
-    required List<ShoppingItemModel> items,
+    required List<ProductModel> items,
   }) {
     return Container(
       height: AppSize.s380,
@@ -470,16 +561,62 @@ abstract class WidgetsManager {
               scrollDirection: Axis.horizontal,
               itemCount: items.length,
               itemBuilder: (context, index) {
-                return WidgetsManager.categoryItem(
+                return productSliderItem(
                   context: context,
-                  item: items[index],
-                  isFavorite: items[index].isFavorite,
+                  product: items[index],
+                  isFavorite: items[index].isNew,
                   onPressedFavorite: () {},
                 );
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  static Widget dropdownButton<T>({
+    required BuildContext context,
+    required List<DropdownMenuItem<T>> items,
+    required void Function(T?) onChanged,
+    T? value,
+    Color? buttonColor,
+    String? hint,
+    double? iconSize,
+    IconData? icon,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+    BorderRadiusGeometry? borderRadius,
+    BorderSide? side,
+  }) {
+    return Container(
+      padding: padding ??
+          const EdgeInsets.symmetric(
+            horizontal: AppPadding.p8,
+            // vertical: AppPadding.p2,
+          ),
+      margin: margin,
+      decoration: ShapeDecoration(
+        color: buttonColor ?? Colors.white,
+        shape: RoundedRectangleBorder(
+          side: side ??
+              BorderSide(
+                  width: AppSize.s0_4,
+                  color: Theme.of(context).colorScheme.error),
+          borderRadius: borderRadius ?? BorderRadius.circular(AppSize.s8),
+        ),
+      ),
+      child: DropdownButton<T>(
+        hint: Text(hint ?? "Placeholder"),
+        value: value,
+        items: items,
+        onChanged: onChanged,
+        icon: Icon(
+          icon ?? Icons.keyboard_arrow_down_rounded,
+        ),
+        isExpanded: true,
+        iconSize: iconSize ?? 16,
+        underline: const SizedBox(),
       ),
     );
   }
@@ -526,6 +663,92 @@ abstract class WidgetsManager {
               child: const Text('OK'),
             ),
         ],
+      ),
+    );
+  }
+
+  static Widget gridProductShimmer({
+    required BuildContext context,
+  }) {
+    return Shimmer.fromColors(
+      baseColor: Theme.of(context).inputDecorationTheme.fillColor!,
+      highlightColor: Theme.of(context).disabledColor,
+      child: Container(
+        margin: const EdgeInsets.only(right: AppSize.s20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: AppSize.s200,
+              width: AppSize.s200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s20),
+                color: Theme.of(context).canvasColor,
+              ),
+            ),
+            Container(
+              width: AppSize.s60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s20),
+                color: Theme.of(context).canvasColor,
+              ),
+            ),
+            Container(
+              width: AppSize.s100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s20),
+                color: Theme.of(context).canvasColor,
+              ),
+            ),
+            Container(
+              width: AppSize.s100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s20),
+                color: Theme.of(context).canvasColor,
+              ),
+            ),
+            const SizedBox(height: AppSize.s10),
+            Container(
+              height: AppSize.s24,
+              width: AppSize.s160,
+              margin: const EdgeInsets.only(bottom: AppMargin.m10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s8),
+                color: Theme.of(context).canvasColor,
+              ),
+            ),
+            Container(
+              height: AppSize.s24,
+              width: AppSize.s100,
+              margin: const EdgeInsets.only(bottom: AppMargin.m10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s8),
+                color: Theme.of(context).canvasColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget categorySliderShimmer(
+      {required BuildContext context, int? itemCount}) {
+    return Shimmer.fromColors(
+      baseColor: Theme.of(context).inputDecorationTheme.fillColor!,
+      highlightColor: Theme.of(context).disabledColor,
+      child: Container(
+        padding: const EdgeInsets.all(AppPadding.p10),
+        height: AppSize.s320,
+        child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: itemCount ?? Random().nextInt(10) + 5,
+          itemBuilder: (context, index) {
+            return gridProductShimmer(context: context);
+          },
+        ),
       ),
     );
   }

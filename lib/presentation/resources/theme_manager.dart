@@ -8,31 +8,24 @@ import 'font_manager.dart';
 import 'style_manager.dart';
 import 'values_manager.dart';
 
-abstract class ThemeManager {
-  static bool isDark =
-      SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-          Brightness.dark;
-  static Future<bool> isDarkMode() async {
-    bool? isDarkMode = await SharedPrefManager.isDarkMode;
+class ThemeManager {
+  final SharedPrefManager _sharedPrefs;
+  ThemeManager(this._sharedPrefs);
+  bool get isDarkMode {
+    bool? isDarkMode = _sharedPrefs.isDarkMode;
     isDarkMode ??=
         SchedulerBinding.instance.platformDispatcher.platformBrightness ==
             Brightness.dark;
     return isDarkMode;
   }
 
-  static ThemeData getInitialTheme() {
-    bool isDarkMode =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.dark;
-    return getApplicationTheme(isDarkMode: isDarkMode);
+  ThemeData switchCurrentTheme() {
+    _sharedPrefs.setDarkMode(!isDarkMode);
+    return getApplicationTheme();
   }
 
-  static Future<ThemeData> getCurrentTheme() async {
-    return getApplicationTheme(isDarkMode: await isDarkMode());
-  }
-
-  static ThemeData getApplicationTheme({required bool isDarkMode}) {
-    if (isDarkMode) {
+  ThemeData getApplicationTheme({bool? dark}) {
+    if (dark ?? isDarkMode) {
       return ThemeData(
         primaryColor: ColorManager.darkPrimary,
         primaryColorLight: ColorManager.lightPrimary,
@@ -500,6 +493,21 @@ abstract class ThemeManager {
         // 11 Icon theme
         iconTheme: const IconThemeData(
           color: ColorManager.lightBlack,
+        ),
+
+        // 12 outlined button theme
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: ColorManager.lightBlack,
+            backgroundColor: ColorManager.lightPrimary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSize.s25),
+            ),
+            side: const BorderSide(
+              color: ColorManager.lightPrimary,
+              width: AppSize.s1,
+            ),
+          ),
         ),
 
         // 00 Extension

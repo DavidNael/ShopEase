@@ -29,7 +29,7 @@ class ForgotPasswordView extends StatelessWidget {
                   AppStrings.forgotPasswordDescription,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-                WidgetsManager.textFormField(
+                WidgetManager.textFormField(
                   hintText: 'Enter your email',
                   labelText: 'Email',
                   color: Theme.of(context).inputDecorationTheme.fillColor,
@@ -42,7 +42,7 @@ class ForgotPasswordView extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     child: const Text(
-                      AppStrings.sendText,
+                      AppStrings.send,
                     ),
                   ),
                 ),

@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
-import 'package:shopease/presentation/resources/constants_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 
+import '../../../app/constants.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/routes_manager.dart';
 import '../../resources/values_manager.dart';

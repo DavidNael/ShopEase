@@ -6,10 +6,6 @@ class ThemeEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
-class GetThemeEvent extends ThemeEvent {
-  const GetThemeEvent();
-}
 class ThemeChangeEvent extends ThemeEvent {
   const ThemeChangeEvent();
 }

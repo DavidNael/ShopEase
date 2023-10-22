@@ -6,7 +6,7 @@ import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboard
 
 class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingStates> {
   int currentPage = 0;
-  String buttonText = AppStrings.nextText;
+  String buttonText = AppStrings.next;
   final int pageLength;
   PageController pageController = PageController();
 
@@ -55,9 +55,9 @@ class OnboardingBloc extends Bloc<OnboardingEvents, OnboardingStates> {
 
   void setButtonText() {
     if (currentPage == pageLength - 1) {
-      buttonText = AppStrings.getStartedText;
+      buttonText = AppStrings.getStarted;
     } else {
-      buttonText = AppStrings.nextText;
+      buttonText = AppStrings.next;
     }
   }
 

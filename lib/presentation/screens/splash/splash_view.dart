@@ -1,12 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shopease/app/theme_bloc/theme_bloc.dart';
-import 'package:shopease/app/theme_bloc/theme_event.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
 import 'package:shopease/presentation/resources/color_manager.dart';
-import '../../resources/constants_manager.dart';
+import '../../../app/constants.dart';
 import '../../resources/routes_manager.dart';
 
 class SplashView extends StatefulWidget {
@@ -19,7 +16,6 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Provider.of<ThemeBloc>(context, listen: false).add(const GetThemeEvent());
     Timer(const Duration(seconds: AppConstants.splashTime), () async {
       Navigator.pushReplacementNamed(context, Routes.main);
     });

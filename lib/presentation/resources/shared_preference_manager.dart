@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefManager {
+  final SharedPreferences prefs;
+  SharedPrefManager(this.prefs);
   static const String _isDarkMode = 'isDarkMode';
 
-  static Future<bool?> get isDarkMode async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool? get isDarkMode  {
     return prefs.getBool(_isDarkMode);
   }
 
-  static Future<void> setDarkMode(bool value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<void> setDarkMode(bool value) async {
     prefs.setBool(_isDarkMode, value);
   }
 }
