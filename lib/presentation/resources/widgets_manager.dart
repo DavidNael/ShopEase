@@ -3,14 +3,18 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shopease/domain/models/products_model.dart';
 import 'package:shopease/presentation/resources/theme_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
+import 'package:shopease/presentation/screens/authentication/auth_bloc/auth_bloc.dart';
 
 import '../../domain/models/category_model.dart';
 import '../screens/products/product_view.dart';
+import '../screens/products/products_bloc/products_bloc.dart';
 import 'assets_manager.dart';
 import 'color_manager.dart';
 
@@ -47,6 +51,65 @@ abstract class WidgetManager {
     );
   }
 
+  static Widget filledElevatedButton({
+    required BuildContext context,
+    required Widget child,
+    VoidCallback? onPressed,
+    Color borderColor = ColorManager.black,
+    Color? backgroundColor,
+    BorderRadiusGeometry? borderRadius,
+    EdgeInsetsGeometry? padding,
+    double borderWidth = AppSize.s1,
+  }) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+            backgroundColor: MaterialStateProperty.all(
+              backgroundColor ?? Theme.of(context).primaryColor,
+            ),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                side: BorderSide(
+                  color: borderColor,
+                  width: borderWidth,
+                ),
+                borderRadius: borderRadius ??=
+                    BorderRadius.circular(AppSize.s25),
+              ),
+            ),
+            padding: MaterialStateProperty.all(padding ??= EdgeInsets.zero),
+          ),
+      child: child,
+    );
+  }
+
+  static Widget filledElevatedTextButton({
+    required BuildContext context,
+    required String text,
+    VoidCallback? onPressed,
+    Color borderColor = ColorManager.black,
+    Color? backgroundColor,
+    BorderRadiusGeometry? borderRadius,
+    EdgeInsetsGeometry? padding,
+    double borderWidth = AppSize.s1,
+  }) {
+    return filledElevatedButton(
+      context: context,
+      onPressed: onPressed,
+      borderColor: borderColor,
+      backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
+      borderRadius: borderRadius,
+      padding: padding,
+      borderWidth: borderWidth,
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: ColorManager.white,
+            ),
+      ),
+    );
+  }
+
   static Widget textFormField({
     EdgeInsetsGeometry? padding = const EdgeInsets.all(AppSize.s10),
     EdgeInsetsGeometry? margin,
@@ -59,6 +122,7 @@ abstract class WidgetManager {
     String? helperText,
     String? errorText,
     TextEditingController? controller,
+    TextInputType? keyboardType,
     bool obscureText = false,
     bool readOnly = false,
     bool enabled = true,
@@ -86,6 +150,7 @@ abstract class WidgetManager {
         obscureText: obscureText,
         readOnly: readOnly,
         enabled: enabled,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hintText,
           labelText: labelText,
@@ -125,8 +190,8 @@ abstract class WidgetManager {
         padding: iconPadding ?? EdgeInsets.zero,
         child: SvgPicture.asset(
           isActive
-              ? activeIcon ?? ImageAssets.heartInactiveIcon
-              : inactiveIcon ?? ImageAssets.heartActiveDarkIcon,
+              ? activeIcon ?? ImageAssets.heartActiveDarkIcon
+              : inactiveIcon ?? ImageAssets.heartInactiveIcon,
           height: iconSize,
         ),
       ),
@@ -224,7 +289,6 @@ abstract class WidgetManager {
     required ProductModel product,
     required bool isFavorite,
     bool isNetwork = true,
-    required VoidCallback onPressedFavorite,
   }) {
     return customElevatedButton(
       context: context,
@@ -308,7 +372,11 @@ abstract class WidgetManager {
                   child: hoveringIconWidget(
                     context: context,
                     isActive: isFavorite,
-                    onPressed: onPressedFavorite,
+                    onPressed: () {
+                      context
+                          .read<ProductsBloc>()
+                          .add(ProductsEvent.switchProductFavorite(product));
+                    },
                   ),
                 ),
               ],
@@ -479,8 +547,13 @@ abstract class WidgetManager {
             padding: const EdgeInsets.all(AppPadding.p8),
             child: hoveringIconWidget(
               context: context,
-              isActive: product.isNew,
-              onPressed: () {},
+              isActive:
+                  AuthBloc.checkFavorite(productId: product.sku.toString()),
+              onPressed: () {
+                context
+                    .read<ProductsBloc>()
+                    .add(ProductsEvent.switchProductFavorite(product));
+              },
             ),
           ),
         ),
@@ -564,8 +637,8 @@ abstract class WidgetManager {
                 return productSliderItem(
                   context: context,
                   product: items[index],
-                  isFavorite: items[index].isNew,
-                  onPressedFavorite: () {},
+                  isFavorite: AuthBloc.checkFavorite(
+                      productId: items[index].sku.toString()),
                 );
               },
             ),
@@ -638,6 +711,25 @@ abstract class WidgetManager {
           ],
         ),
       ),
+    );
+  }
+
+  static void showToast({
+    String text = "",
+    Color? textColor ,
+    Color? backgroundColor,
+    ToastGravity gravity = ToastGravity.BOTTOM,
+    double fontSize = 16,
+    int timeInSecForIosWeb = 1,
+  }) {
+    Fluttertoast.showToast(
+      msg: text,
+      textColor: textColor,
+      backgroundColor: backgroundColor,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: gravity,
+      timeInSecForIosWeb: timeInSecForIosWeb,
+      fontSize: fontSize,
     );
   }
 

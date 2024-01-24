@@ -12,44 +12,46 @@ class UseCaseImpl implements BaseUseCase<ProductsRequest, ProductsModel> {
   UseCaseImpl(this._repository);
   @override
   Future<Either<Failure, ProductsModel>> getProducts(
-      {required ProductsRequest input}) {
-    return _repository.getProducts(request: input);
+      {required ProductsRequest input}) async {
+    return await _repository.getProducts(request: input);
   }
 
   @override
-  Future<Either<Failure, UserModel>> createUser({required UserModel user}) {
-    return _repository.createUser(user: user);
+  Future<Either<Failure, UserModel>> createUser(
+      {required UserModel user}) async {
+    return await _repository.createUser(user: user);
   }
 
   @override
-  Future<Either<Failure, UserModel>> updateUser({required UserModel user}) {
-    return _repository.updateUser(user: user);
+  Future<Either<Failure, UserModel>> updateUser(
+      {required UserModel user}) async {
+    return await _repository.updateUser(user: user);
   }
 
   @override
-  Future<Either<Failure, bool>> deleteUser({required String id}) {
-    return _repository.deleteUser(id: id);
+  Future<Either<Failure, bool>> deleteUser({required String id}) async {
+    return await _repository.deleteUser(id: id);
   }
 
   @override
-  Future<Either<Failure, UserModel>> getUser({required String id}) {
-    return _repository.getUser(id: id);
+  Future<Either<Failure, UserModel>> getUser({required String id}) async {
+    return await _repository.getUser(id: id);
   }
 
   @override
   Future<Either<Failure, UserModel>> signInWithEmailAndPassword(
-      {required UserModel user}) {
-    return _repository.signInWithEmailAndPassword(user: user);
+      {required UserModel user}) async {
+    return await _repository.signInWithEmailAndPassword(user: user);
   }
 
   @override
   Future<Either<Failure, UserModel>> signInWithGoogle(
-      {required UserModel user}) {
-    return _repository.signInWithGoogle(user: user);
+      {required UserModel user}) async {
+    return await _repository.signInWithGoogle(user: user);
   }
 
   @override
-  Future<Either<Failure, bool>> signOut() {
-    return _repository.signOut();
+  Future<Either<Failure, bool>> signOut() async {
+    return await _repository.signOut();
   }
 }

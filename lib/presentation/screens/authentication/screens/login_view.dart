@@ -5,12 +5,9 @@ import 'package:shopease/presentation/resources/assets_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
 import 'package:shopease/presentation/resources/widgets_manager.dart';
-import 'package:shopease/presentation/screens/login/login_bloc/login_events.dart';
-
-import '../../resources/color_manager.dart';
-import '../../resources/routes_manager.dart';
-import 'login_bloc/login_bloc.dart';
-import 'login_bloc/login_states.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/routes_manager.dart';
+import '../auth_bloc/auth_bloc.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -23,30 +20,38 @@ class LoginView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
           child: SingleChildScrollView(
-            child: BlocConsumer<LoginBloc, LoginState>(
+            child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if (state is LoginLoadingState) {
-                  WidgetManager.showLoadingDialog(
-                    context: context,
-                    message: AppStrings.loading,
-                  );
-                }
-                if (state is LoginSuccessState) {
-                  Navigator.pop(context);
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    Routes.main,
-                    (route) => false,
-                  );
-                }
-                if (state is LoginFailureState) {
-                  Navigator.pop(context);
-                  WidgetManager.showMessageDialog(
-                    context: context,
-                    title: "Login Failed",
-                    message: state.error,
-                  );
-                }
+                state.maybeWhen(
+                  initial: () {
+                    WidgetManager.showLoadingDialog(
+                      context: context,
+                      message: AppStrings.loading,
+                    );
+                  },
+                  loaded: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.main,
+                      (route) => false,
+                    );
+                  },
+                  error: (message) {
+                    Navigator.pop(context);
+                    WidgetManager.showMessageDialog(
+                      context: context,
+                      title: "Login Failed",
+                      message: message,
+                    );
+                  },
+                  orElse: () {
+                    WidgetManager.showLoadingDialog(
+                      context: context,
+                      message: AppStrings.loading,
+                    );
+                  },
+                );
               },
               builder: (context, state) {
                 return loginWidget(context);
@@ -75,15 +80,16 @@ Widget loginWidget(BuildContext context) {
 
       /// Email Text Field
       WidgetManager.textFormField(
-        controller: context.read<LoginBloc>().emailController,
+        controller: context.read<AuthBloc>().emailController,
         hintText: 'Enter your email',
         labelText: 'Email',
+        keyboardType: TextInputType.emailAddress,
         color: Theme.of(context).inputDecorationTheme.fillColor,
       ),
 
       /// Password Text Field
       WidgetManager.textFormField(
-        controller: context.read<LoginBloc>().passwordController,
+        controller: context.read<AuthBloc>().passwordController,
         hintText: 'Enter your password',
         labelText: 'Password',
         color: Theme.of(context).inputDecorationTheme.fillColor,
@@ -125,15 +131,14 @@ Widget loginWidget(BuildContext context) {
       SizedBox(
         width: double.infinity,
         height: AppSize.s54,
-        child: ElevatedButton(
+        child: WidgetManager.filledElevatedTextButton(
+          context: context,
           onPressed: () {
-            context.read<LoginBloc>().add(
-                  const EmailLoginEvent(),
+            context.read<AuthBloc>().add(
+                  const AuthEvents.emailLoginEvent(),
                 );
           },
-          child: const Text(
-            AppStrings.login,
-          ),
+          text: AppStrings.login,
         ),
       ),
 

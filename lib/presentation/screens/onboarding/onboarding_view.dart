@@ -4,6 +4,7 @@ import 'package:shopease/presentation/resources/assets_manager.dart';
 import 'package:shopease/presentation/resources/color_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
 import 'package:shopease/presentation/resources/values_manager.dart';
+import 'package:shopease/presentation/resources/widgets_manager.dart';
 import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopease/presentation/screens/onboarding/onboarding_bloc/onboarding_events.dart';
@@ -18,37 +19,35 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<OnboardingBloc>(context);
     return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<OnboardingBloc, OnboardingStates>(
-          builder: (context, state) {
-            return PageView(
-              onPageChanged: (newIndex) {
-                bloc.add(OnboardingChangePageEvent(newIndex));
-              },
-              controller: bloc.pageController,
-              children: [
-                getPageView(
-                  context: context,
-                  title: AppStrings.onBoardingTitle1,
-                  description: AppStrings.onBoardingDescription1,
-                  image: ImageAssets.lazyLogo,
-                ),
-                getPageView(
-                  context: context,
-                  title: AppStrings.onBoardingTitle2,
-                  description: AppStrings.onBoardingDescription2,
-                  image: ImageAssets.shoppingLogo,
-                ),
-                getPageView(
-                  context: context,
-                  title: AppStrings.onBoardingTitle3,
-                  description: AppStrings.onBoardingDescription3,
-                  image: ImageAssets.shopLogoIcon,
-                ),
-              ],
-            );
-          },
-        ),
+      body: BlocBuilder<OnboardingBloc, OnboardingStates>(
+        builder: (context, state) {
+          return PageView(
+            onPageChanged: (newIndex) {
+              bloc.add(OnboardingChangePageEvent(newIndex));
+            },
+            controller: bloc.pageController,
+            children: [
+              getPageView(
+                context: context,
+                title: AppStrings.onBoardingTitle1,
+                description: AppStrings.onBoardingDescription1,
+                image: ImageAssets.lazyLogo,
+              ),
+              getPageView(
+                context: context,
+                title: AppStrings.onBoardingTitle2,
+                description: AppStrings.onBoardingDescription2,
+                image: ImageAssets.shoppingLogo,
+              ),
+              getPageView(
+                context: context,
+                title: AppStrings.onBoardingTitle3,
+                description: AppStrings.onBoardingDescription3,
+                image: ImageAssets.shopLogoIcon,
+              ),
+            ],
+          );
+        },
       ),
       bottomNavigationBar: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -59,16 +58,13 @@ class OnboardingView extends StatelessWidget {
           builder: (context, state) {
             if (state is OnboardingPageChanged &&
                 state.currentPage == AppConstants.onboardingPages - 1) {
-              return ElevatedButton(
+              return WidgetManager.filledElevatedTextButton(
+                context: context,
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Routes.getStarted);
                 },
-                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.all(
-                        ColorManager.lightPrimary,
-                      ),
-                    ),
-                child: const Text(AppStrings.getStarted),
+                backgroundColor: ColorManager.lightPrimary,
+                text: AppStrings.getStarted,
               );
             } else {
               return Row(

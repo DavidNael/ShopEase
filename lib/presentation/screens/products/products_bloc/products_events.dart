@@ -8,6 +8,10 @@ class ProductsEvent with _$ProductsEvent {
       _GetProductsEvent;
   const factory ProductsEvent.getHomeProducts(ProductsRequest request) =
       _GetHomeProductsEvent;
+  const factory ProductsEvent.switchProductFavorite(ProductModel product) =
+      _SwitchProductFavoriteEvent;
+  const factory ProductsEvent.switchProductCart(ProductModel product) =
+      _SwitchProductCartEvent;
 }
 
 

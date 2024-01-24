@@ -80,7 +80,15 @@ class HomeView extends StatelessWidget {
                 case ConnectionState.waiting:
                   return loading(context);
                 case ConnectionState.done:
-                  return homeView(context: context);
+                  if (state.data == null) {
+                    return error("No favorites yet");
+                  } else if (state.hasData) {
+                    return homeView(context: context);
+                  } else if (state.hasError) {
+                    return error("error occured ${state.error.toString()}}");
+                  } else {
+                    return error("unknown error occured");
+                  }
                 default:
                   return loading(context);
               }
@@ -94,8 +102,6 @@ class HomeView extends StatelessWidget {
 
 Widget homeView({
   required BuildContext context,
-  // required List<ShoppingItemModel> newProducts,
-  // required List<ShoppingItemModel> saleProducts,
 }) {
   return Column(
     children: [

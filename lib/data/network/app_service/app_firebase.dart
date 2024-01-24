@@ -20,7 +20,7 @@ class AppFirebaseServiceClient {
       password: user.password,
     );
     final newUser = user.copyWith(id: userCred.user!.uid);
-    await createUser(user: user);
+    await createUser(user: newUser);
     return newUser;
   }
 

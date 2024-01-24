@@ -6,6 +6,7 @@ import 'package:shopease/data/network/app_service/app_firebase.dart';
 import 'package:shopease/domain/usecase/usecase_impl.dart';
 import 'package:shopease/presentation/resources/shared_preference_manager.dart';
 import 'package:shopease/presentation/resources/theme_manager.dart';
+import 'package:shopease/presentation/screens/authentication/auth_bloc/auth_bloc.dart';
 import 'package:shopease/presentation/screens/products/products_bloc/products_bloc.dart';
 
 import '../data/data_source/local/local_data_source.dart';
@@ -65,6 +66,9 @@ Future<void> initAppModule() async {
         () => UseCaseImpl(getItInstance<Repository>()));
     getItInstance.registerFactory<ProductsBloc>(
       () => ProductsBloc(getItInstance<UseCaseImpl>()),
+    );
+    getItInstance.registerFactory<AuthBloc>(
+      () => AuthBloc(getItInstance<UseCaseImpl>()),
     );
   }
 }

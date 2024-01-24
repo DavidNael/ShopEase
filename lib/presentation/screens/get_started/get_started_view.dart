@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shopease/presentation/resources/assets_manager.dart';
 import 'package:shopease/presentation/resources/strings_manager.dart';
+import 'package:shopease/presentation/resources/widgets_manager.dart';
 
 import '../../../app/constants.dart';
 import '../../resources/color_manager.dart';
@@ -75,10 +76,12 @@ class _GetStartedViewState extends State<GetStartedView>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Get Started',
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                          color: ColorManager.white,
-                        )),
+                Text(
+                  'Get Started',
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        color: ColorManager.white,
+                      ),
+                ),
                 FadeTransition(
                   opacity: _loginButtonAnimation,
                   child: SlideTransition(
@@ -91,21 +94,12 @@ class _GetStartedViewState extends State<GetStartedView>
                       height: AppSize.s54,
                       margin:
                           const EdgeInsets.symmetric(vertical: AppMargin.m24),
-                      child: ElevatedButton(
+                      child: WidgetManager.filledElevatedTextButton(
+                        context: context,
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.login);
                         },
-                        style: Theme.of(context)
-                            .elevatedButtonTheme
-                            .style
-                            ?.copyWith(
-                              backgroundColor: MaterialStateProperty.all(
-                                ColorManager.lightPrimary,
-                              ),
-                            ),
-                        child: const Text(
-                          AppStrings.login,
-                        ),
+                        text: AppStrings.login,
                       ),
                     ),
                   ),
@@ -120,21 +114,12 @@ class _GetStartedViewState extends State<GetStartedView>
                         begin: const Offset(0, 2),
                         end: const Offset(0, 0),
                       ).animate(_registerButtonAnimation),
-                      child: ElevatedButton(
+                      child: WidgetManager.filledElevatedTextButton(
+                        context: context,
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.register);
                         },
-                        style: Theme.of(context)
-                            .elevatedButtonTheme
-                            .style
-                            ?.copyWith(
-                              backgroundColor: MaterialStateProperty.all(
-                                ColorManager.lightPrimary,
-                              ),
-                            ),
-                        child: const Text(
-                          AppStrings.register,
-                        ),
+                        text: AppStrings.register,
                       ),
                     ),
                   ),

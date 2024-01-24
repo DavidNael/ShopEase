@@ -2,7 +2,7 @@ class UserModel {
   String id;
   String userName;
   String email;
-  int phoneNumber;
+  String phoneNumber;
   String password;
   String address;
   String photoUrl;
@@ -26,12 +26,66 @@ class UserModel {
   });
 
   factory UserModel.newUser({
-    String id='',
+    String id = '',
     required String userName,
     required String email,
-    required int phoneNumber,
+    required String phoneNumber,
     required String password,
     String address = '',
+    String photoUrl = '',
+    List<String> cart = const [],
+    List<String> favorites = const [],
+    List<String> productsHistory = const [],
+    List<String> ordersHistory = const [],
+  }) {
+    return UserModel(
+      id: id,
+      userName: userName,
+      email: email,
+      phoneNumber: phoneNumber,
+      password: password,
+      address: address,
+      photoUrl: photoUrl,
+      cart: cart,
+      favorites: favorites,
+      productsHistory: productsHistory,
+      ordersHistory: ordersHistory,
+    );
+  }
+  factory UserModel.loginRequest({
+    String id = '',
+    String userName = '',
+    required String email,
+    String phoneNumber = '',
+    required String password,
+    String address = '',
+    String photoUrl = '',
+    List<String> cart = const [],
+    List<String> favorites = const [],
+    List<String> productsHistory = const [],
+    List<String> ordersHistory = const [],
+  }) {
+    return UserModel(
+      id: id,
+      userName: userName,
+      email: email,
+      phoneNumber: phoneNumber,
+      password: password,
+      address: address,
+      photoUrl: photoUrl,
+      cart: cart,
+      favorites: favorites,
+      productsHistory: productsHistory,
+      ordersHistory: ordersHistory,
+    );
+  }
+  factory UserModel.debugUser({
+    String id = 'debug',
+    String userName = 'Test User',
+    String email = "1",
+    String phoneNumber = '1234567890',
+    String password = "1",
+    String address = 'This is a debug user.',
     String photoUrl = '',
     List<String> cart = const [],
     List<String> favorites = const [],
@@ -57,7 +111,7 @@ class UserModel {
     String? id,
     String? userName,
     String? email,
-    int? phoneNumber,
+    String? phoneNumber,
     String? password,
     String? address,
     String? photoUrl,

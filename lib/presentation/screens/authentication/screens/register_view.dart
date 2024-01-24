@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shopease/presentation/screens/register/register_bloc/register_bloc.dart';
-import 'package:shopease/presentation/screens/register/register_bloc/register_events.dart';
-import 'package:shopease/presentation/screens/register/register_bloc/register_states.dart';
-
-import '../../resources/assets_manager.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/routes_manager.dart';
-import '../../resources/strings_manager.dart';
-import '../../resources/values_manager.dart';
-import '../../resources/widgets_manager.dart';
+import 'package:shopease/presentation/screens/authentication/auth_bloc/auth_bloc.dart';
+import '../../../resources/assets_manager.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/routes_manager.dart';
+import '../../../resources/strings_manager.dart';
+import '../../../resources/values_manager.dart';
+import '../../../resources/widgets_manager.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -23,26 +20,38 @@ class RegisterView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
           child: SingleChildScrollView(
-            child: BlocConsumer<RegisterBloc, RegisterState>(
+            child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if (state is RegisterLoadingState) {
-                  WidgetManager.showLoadingDialog(
-                    context: context,
-                    message: AppStrings.loading,
-                  );
-                }
-                if (state is RegisterSuccessState) {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, Routes.login);
-                }
-                if (state is RegisterFailureState) {
-                  Navigator.pop(context);
-                  WidgetManager.showMessageDialog(
-                    context: context,
-                    title: "Register Failed",
-                    message: state.error,
-                  );
-                }
+                state.maybeWhen(
+                  initial: () {
+                    WidgetManager.showLoadingDialog(
+                      context: context,
+                      message: AppStrings.loading,
+                    );
+                  },
+                  loaded: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.main,
+                      (route) => false,
+                    );
+                  },
+                  error: (message) {
+                    Navigator.pop(context);
+                    WidgetManager.showMessageDialog(
+                      context: context,
+                      title: "Register Failed",
+                      message: message,
+                    );
+                  },
+                  orElse: () {
+                    WidgetManager.showLoadingDialog(
+                      context: context,
+                      message: AppStrings.loading,
+                    );
+                  },
+                );
               },
               builder: (context, state) {
                 return Column(
@@ -57,24 +66,39 @@ class RegisterView extends StatelessWidget {
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
+
+                    /// Username Text Field
                     WidgetManager.textFormField(
-                      controller:
-                          context.read<RegisterBloc>().usernameController,
+                      controller: context.read<AuthBloc>().usernameController,
                       hintText: 'Enter your username',
                       labelText: 'Username',
                       color: Theme.of(context).inputDecorationTheme.fillColor,
+                      keyboardType: TextInputType.name,
+                    ),
+
+                    /// Phone Number Text Field
+                    WidgetManager.textFormField(
+                      controller: context.read<AuthBloc>().phoneController,
+                      hintText: 'Enter your Phone Number',
+                      labelText: 'Phone Number',
+                      color: Theme.of(context).inputDecorationTheme.fillColor,
+                      keyboardType: TextInputType.phone,
                       margin:
                           const EdgeInsets.symmetric(vertical: AppMargin.m14),
                     ),
+
+                    /// Email Text Field
                     WidgetManager.textFormField(
-                      controller: context.read<RegisterBloc>().emailController,
+                      controller: context.read<AuthBloc>().emailController,
                       hintText: 'Enter your email',
                       labelText: 'Email',
+                      keyboardType: TextInputType.emailAddress,
                       color: Theme.of(context).inputDecorationTheme.fillColor,
                     ),
+
+                    /// Password Text Field
                     WidgetManager.textFormField(
-                      controller:
-                          context.read<RegisterBloc>().passwordController,
+                      controller: context.read<AuthBloc>().passwordController,
                       hintText: 'Enter your password',
                       labelText: 'Password',
                       color: Theme.of(context).inputDecorationTheme.fillColor,
@@ -82,20 +106,23 @@ class RegisterView extends StatelessWidget {
                           const EdgeInsets.symmetric(vertical: AppMargin.m14),
                       obscureText: true,
                     ),
+
+                    /// Register Button
                     SizedBox(
                       width: double.infinity,
                       height: AppSize.s54,
-                      child: ElevatedButton(
+                      child: WidgetManager.filledElevatedTextButton(
+                        context: context,
                         onPressed: () {
-                          context.read<RegisterBloc>().add(
-                                const EmailRegisterEvent(),
+                          context.read<AuthBloc>().add(
+                                const AuthEvents.registerWithEmailAndPassword(),
                               );
                         },
-                        child: const Text(
-                          AppStrings.register,
-                        ),
+                        text: AppStrings.register,
                       ),
                     ),
+
+                    /// Already a member Text Button
                     TextButton(
                       onPressed: () {
                         Navigator.popAndPushNamed(context, Routes.login);
@@ -105,6 +132,8 @@ class RegisterView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: AppSize.s50),
+
+                    /// OR Text Divider
                     Container(
                       margin: const EdgeInsets.only(bottom: AppMargin.m14),
                       child: const Row(
@@ -207,6 +236,7 @@ class RegisterView extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: AppSize.s50),
                   ],
                 );
               },

@@ -21,6 +21,8 @@ mixin _$ProductsEvent {
     required TResult Function(ProductsSettings productsSettings) changeSettings,
     required TResult Function(List<ProductsRequest> request) getProducts,
     required TResult Function(ProductsRequest request) getHomeProducts,
+    required TResult Function(ProductModel product) switchProductFavorite,
+    required TResult Function(ProductModel product) switchProductCart,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +30,8 @@ mixin _$ProductsEvent {
     TResult? Function(ProductsSettings productsSettings)? changeSettings,
     TResult? Function(List<ProductsRequest> request)? getProducts,
     TResult? Function(ProductsRequest request)? getHomeProducts,
+    TResult? Function(ProductModel product)? switchProductFavorite,
+    TResult? Function(ProductModel product)? switchProductCart,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +39,8 @@ mixin _$ProductsEvent {
     TResult Function(ProductsSettings productsSettings)? changeSettings,
     TResult Function(List<ProductsRequest> request)? getProducts,
     TResult Function(ProductsRequest request)? getHomeProducts,
+    TResult Function(ProductModel product)? switchProductFavorite,
+    TResult Function(ProductModel product)? switchProductCart,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +49,9 @@ mixin _$ProductsEvent {
     required TResult Function(_ChangeSettingsEvent value) changeSettings,
     required TResult Function(_GetProductsEvent value) getProducts,
     required TResult Function(_GetHomeProductsEvent value) getHomeProducts,
+    required TResult Function(_SwitchProductFavoriteEvent value)
+        switchProductFavorite,
+    required TResult Function(_SwitchProductCartEvent value) switchProductCart,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +59,8 @@ mixin _$ProductsEvent {
     TResult? Function(_ChangeSettingsEvent value)? changeSettings,
     TResult? Function(_GetProductsEvent value)? getProducts,
     TResult? Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult? Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult? Function(_SwitchProductCartEvent value)? switchProductCart,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +68,8 @@ mixin _$ProductsEvent {
     TResult Function(_ChangeSettingsEvent value)? changeSettings,
     TResult Function(_GetProductsEvent value)? getProducts,
     TResult Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult Function(_SwitchProductCartEvent value)? switchProductCart,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -159,6 +172,8 @@ class _$ChangeSettingsEventImpl
     required TResult Function(ProductsSettings productsSettings) changeSettings,
     required TResult Function(List<ProductsRequest> request) getProducts,
     required TResult Function(ProductsRequest request) getHomeProducts,
+    required TResult Function(ProductModel product) switchProductFavorite,
+    required TResult Function(ProductModel product) switchProductCart,
   }) {
     return changeSettings(productsSettings);
   }
@@ -169,6 +184,8 @@ class _$ChangeSettingsEventImpl
     TResult? Function(ProductsSettings productsSettings)? changeSettings,
     TResult? Function(List<ProductsRequest> request)? getProducts,
     TResult? Function(ProductsRequest request)? getHomeProducts,
+    TResult? Function(ProductModel product)? switchProductFavorite,
+    TResult? Function(ProductModel product)? switchProductCart,
   }) {
     return changeSettings?.call(productsSettings);
   }
@@ -179,6 +196,8 @@ class _$ChangeSettingsEventImpl
     TResult Function(ProductsSettings productsSettings)? changeSettings,
     TResult Function(List<ProductsRequest> request)? getProducts,
     TResult Function(ProductsRequest request)? getHomeProducts,
+    TResult Function(ProductModel product)? switchProductFavorite,
+    TResult Function(ProductModel product)? switchProductCart,
     required TResult orElse(),
   }) {
     if (changeSettings != null) {
@@ -193,6 +212,9 @@ class _$ChangeSettingsEventImpl
     required TResult Function(_ChangeSettingsEvent value) changeSettings,
     required TResult Function(_GetProductsEvent value) getProducts,
     required TResult Function(_GetHomeProductsEvent value) getHomeProducts,
+    required TResult Function(_SwitchProductFavoriteEvent value)
+        switchProductFavorite,
+    required TResult Function(_SwitchProductCartEvent value) switchProductCart,
   }) {
     return changeSettings(this);
   }
@@ -203,6 +225,8 @@ class _$ChangeSettingsEventImpl
     TResult? Function(_ChangeSettingsEvent value)? changeSettings,
     TResult? Function(_GetProductsEvent value)? getProducts,
     TResult? Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult? Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult? Function(_SwitchProductCartEvent value)? switchProductCart,
   }) {
     return changeSettings?.call(this);
   }
@@ -213,6 +237,8 @@ class _$ChangeSettingsEventImpl
     TResult Function(_ChangeSettingsEvent value)? changeSettings,
     TResult Function(_GetProductsEvent value)? getProducts,
     TResult Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult Function(_SwitchProductCartEvent value)? switchProductCart,
     required TResult orElse(),
   }) {
     if (changeSettings != null) {
@@ -317,6 +343,8 @@ class _$GetProductsEventImpl
     required TResult Function(ProductsSettings productsSettings) changeSettings,
     required TResult Function(List<ProductsRequest> request) getProducts,
     required TResult Function(ProductsRequest request) getHomeProducts,
+    required TResult Function(ProductModel product) switchProductFavorite,
+    required TResult Function(ProductModel product) switchProductCart,
   }) {
     return getProducts(request);
   }
@@ -327,6 +355,8 @@ class _$GetProductsEventImpl
     TResult? Function(ProductsSettings productsSettings)? changeSettings,
     TResult? Function(List<ProductsRequest> request)? getProducts,
     TResult? Function(ProductsRequest request)? getHomeProducts,
+    TResult? Function(ProductModel product)? switchProductFavorite,
+    TResult? Function(ProductModel product)? switchProductCart,
   }) {
     return getProducts?.call(request);
   }
@@ -337,6 +367,8 @@ class _$GetProductsEventImpl
     TResult Function(ProductsSettings productsSettings)? changeSettings,
     TResult Function(List<ProductsRequest> request)? getProducts,
     TResult Function(ProductsRequest request)? getHomeProducts,
+    TResult Function(ProductModel product)? switchProductFavorite,
+    TResult Function(ProductModel product)? switchProductCart,
     required TResult orElse(),
   }) {
     if (getProducts != null) {
@@ -351,6 +383,9 @@ class _$GetProductsEventImpl
     required TResult Function(_ChangeSettingsEvent value) changeSettings,
     required TResult Function(_GetProductsEvent value) getProducts,
     required TResult Function(_GetHomeProductsEvent value) getHomeProducts,
+    required TResult Function(_SwitchProductFavoriteEvent value)
+        switchProductFavorite,
+    required TResult Function(_SwitchProductCartEvent value) switchProductCart,
   }) {
     return getProducts(this);
   }
@@ -361,6 +396,8 @@ class _$GetProductsEventImpl
     TResult? Function(_ChangeSettingsEvent value)? changeSettings,
     TResult? Function(_GetProductsEvent value)? getProducts,
     TResult? Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult? Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult? Function(_SwitchProductCartEvent value)? switchProductCart,
   }) {
     return getProducts?.call(this);
   }
@@ -371,6 +408,8 @@ class _$GetProductsEventImpl
     TResult Function(_ChangeSettingsEvent value)? changeSettings,
     TResult Function(_GetProductsEvent value)? getProducts,
     TResult Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult Function(_SwitchProductCartEvent value)? switchProductCart,
     required TResult orElse(),
   }) {
     if (getProducts != null) {
@@ -469,6 +508,8 @@ class _$GetHomeProductsEventImpl
     required TResult Function(ProductsSettings productsSettings) changeSettings,
     required TResult Function(List<ProductsRequest> request) getProducts,
     required TResult Function(ProductsRequest request) getHomeProducts,
+    required TResult Function(ProductModel product) switchProductFavorite,
+    required TResult Function(ProductModel product) switchProductCart,
   }) {
     return getHomeProducts(request);
   }
@@ -479,6 +520,8 @@ class _$GetHomeProductsEventImpl
     TResult? Function(ProductsSettings productsSettings)? changeSettings,
     TResult? Function(List<ProductsRequest> request)? getProducts,
     TResult? Function(ProductsRequest request)? getHomeProducts,
+    TResult? Function(ProductModel product)? switchProductFavorite,
+    TResult? Function(ProductModel product)? switchProductCart,
   }) {
     return getHomeProducts?.call(request);
   }
@@ -489,6 +532,8 @@ class _$GetHomeProductsEventImpl
     TResult Function(ProductsSettings productsSettings)? changeSettings,
     TResult Function(List<ProductsRequest> request)? getProducts,
     TResult Function(ProductsRequest request)? getHomeProducts,
+    TResult Function(ProductModel product)? switchProductFavorite,
+    TResult Function(ProductModel product)? switchProductCart,
     required TResult orElse(),
   }) {
     if (getHomeProducts != null) {
@@ -503,6 +548,9 @@ class _$GetHomeProductsEventImpl
     required TResult Function(_ChangeSettingsEvent value) changeSettings,
     required TResult Function(_GetProductsEvent value) getProducts,
     required TResult Function(_GetHomeProductsEvent value) getHomeProducts,
+    required TResult Function(_SwitchProductFavoriteEvent value)
+        switchProductFavorite,
+    required TResult Function(_SwitchProductCartEvent value) switchProductCart,
   }) {
     return getHomeProducts(this);
   }
@@ -513,6 +561,8 @@ class _$GetHomeProductsEventImpl
     TResult? Function(_ChangeSettingsEvent value)? changeSettings,
     TResult? Function(_GetProductsEvent value)? getProducts,
     TResult? Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult? Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult? Function(_SwitchProductCartEvent value)? switchProductCart,
   }) {
     return getHomeProducts?.call(this);
   }
@@ -523,6 +573,8 @@ class _$GetHomeProductsEventImpl
     TResult Function(_ChangeSettingsEvent value)? changeSettings,
     TResult Function(_GetProductsEvent value)? getProducts,
     TResult Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult Function(_SwitchProductCartEvent value)? switchProductCart,
     required TResult orElse(),
   }) {
     if (getHomeProducts != null) {
@@ -539,6 +591,338 @@ abstract class _GetHomeProductsEvent implements ProductsEvent {
   ProductsRequest get request;
   @JsonKey(ignore: true)
   _$$GetHomeProductsEventImplCopyWith<_$GetHomeProductsEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SwitchProductFavoriteEventImplCopyWith<$Res> {
+  factory _$$SwitchProductFavoriteEventImplCopyWith(
+          _$SwitchProductFavoriteEventImpl value,
+          $Res Function(_$SwitchProductFavoriteEventImpl) then) =
+      __$$SwitchProductFavoriteEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ProductModel product});
+}
+
+/// @nodoc
+class __$$SwitchProductFavoriteEventImplCopyWithImpl<$Res>
+    extends _$ProductsEventCopyWithImpl<$Res, _$SwitchProductFavoriteEventImpl>
+    implements _$$SwitchProductFavoriteEventImplCopyWith<$Res> {
+  __$$SwitchProductFavoriteEventImplCopyWithImpl(
+      _$SwitchProductFavoriteEventImpl _value,
+      $Res Function(_$SwitchProductFavoriteEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? product = null,
+  }) {
+    return _then(_$SwitchProductFavoriteEventImpl(
+      null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SwitchProductFavoriteEventImpl
+    with DiagnosticableTreeMixin
+    implements _SwitchProductFavoriteEvent {
+  const _$SwitchProductFavoriteEventImpl(this.product);
+
+  @override
+  final ProductModel product;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductsEvent.switchProductFavorite(product: $product)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductsEvent.switchProductFavorite'))
+      ..add(DiagnosticsProperty('product', product));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SwitchProductFavoriteEventImpl &&
+            (identical(other.product, product) || other.product == product));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, product);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SwitchProductFavoriteEventImplCopyWith<_$SwitchProductFavoriteEventImpl>
+      get copyWith => __$$SwitchProductFavoriteEventImplCopyWithImpl<
+          _$SwitchProductFavoriteEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ProductsSettings productsSettings) changeSettings,
+    required TResult Function(List<ProductsRequest> request) getProducts,
+    required TResult Function(ProductsRequest request) getHomeProducts,
+    required TResult Function(ProductModel product) switchProductFavorite,
+    required TResult Function(ProductModel product) switchProductCart,
+  }) {
+    return switchProductFavorite(product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ProductsSettings productsSettings)? changeSettings,
+    TResult? Function(List<ProductsRequest> request)? getProducts,
+    TResult? Function(ProductsRequest request)? getHomeProducts,
+    TResult? Function(ProductModel product)? switchProductFavorite,
+    TResult? Function(ProductModel product)? switchProductCart,
+  }) {
+    return switchProductFavorite?.call(product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ProductsSettings productsSettings)? changeSettings,
+    TResult Function(List<ProductsRequest> request)? getProducts,
+    TResult Function(ProductsRequest request)? getHomeProducts,
+    TResult Function(ProductModel product)? switchProductFavorite,
+    TResult Function(ProductModel product)? switchProductCart,
+    required TResult orElse(),
+  }) {
+    if (switchProductFavorite != null) {
+      return switchProductFavorite(product);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChangeSettingsEvent value) changeSettings,
+    required TResult Function(_GetProductsEvent value) getProducts,
+    required TResult Function(_GetHomeProductsEvent value) getHomeProducts,
+    required TResult Function(_SwitchProductFavoriteEvent value)
+        switchProductFavorite,
+    required TResult Function(_SwitchProductCartEvent value) switchProductCart,
+  }) {
+    return switchProductFavorite(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChangeSettingsEvent value)? changeSettings,
+    TResult? Function(_GetProductsEvent value)? getProducts,
+    TResult? Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult? Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult? Function(_SwitchProductCartEvent value)? switchProductCart,
+  }) {
+    return switchProductFavorite?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChangeSettingsEvent value)? changeSettings,
+    TResult Function(_GetProductsEvent value)? getProducts,
+    TResult Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult Function(_SwitchProductCartEvent value)? switchProductCart,
+    required TResult orElse(),
+  }) {
+    if (switchProductFavorite != null) {
+      return switchProductFavorite(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SwitchProductFavoriteEvent implements ProductsEvent {
+  const factory _SwitchProductFavoriteEvent(final ProductModel product) =
+      _$SwitchProductFavoriteEventImpl;
+
+  ProductModel get product;
+  @JsonKey(ignore: true)
+  _$$SwitchProductFavoriteEventImplCopyWith<_$SwitchProductFavoriteEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SwitchProductCartEventImplCopyWith<$Res> {
+  factory _$$SwitchProductCartEventImplCopyWith(
+          _$SwitchProductCartEventImpl value,
+          $Res Function(_$SwitchProductCartEventImpl) then) =
+      __$$SwitchProductCartEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ProductModel product});
+}
+
+/// @nodoc
+class __$$SwitchProductCartEventImplCopyWithImpl<$Res>
+    extends _$ProductsEventCopyWithImpl<$Res, _$SwitchProductCartEventImpl>
+    implements _$$SwitchProductCartEventImplCopyWith<$Res> {
+  __$$SwitchProductCartEventImplCopyWithImpl(
+      _$SwitchProductCartEventImpl _value,
+      $Res Function(_$SwitchProductCartEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? product = null,
+  }) {
+    return _then(_$SwitchProductCartEventImpl(
+      null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SwitchProductCartEventImpl
+    with DiagnosticableTreeMixin
+    implements _SwitchProductCartEvent {
+  const _$SwitchProductCartEventImpl(this.product);
+
+  @override
+  final ProductModel product;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductsEvent.switchProductCart(product: $product)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductsEvent.switchProductCart'))
+      ..add(DiagnosticsProperty('product', product));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SwitchProductCartEventImpl &&
+            (identical(other.product, product) || other.product == product));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, product);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SwitchProductCartEventImplCopyWith<_$SwitchProductCartEventImpl>
+      get copyWith => __$$SwitchProductCartEventImplCopyWithImpl<
+          _$SwitchProductCartEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ProductsSettings productsSettings) changeSettings,
+    required TResult Function(List<ProductsRequest> request) getProducts,
+    required TResult Function(ProductsRequest request) getHomeProducts,
+    required TResult Function(ProductModel product) switchProductFavorite,
+    required TResult Function(ProductModel product) switchProductCart,
+  }) {
+    return switchProductCart(product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ProductsSettings productsSettings)? changeSettings,
+    TResult? Function(List<ProductsRequest> request)? getProducts,
+    TResult? Function(ProductsRequest request)? getHomeProducts,
+    TResult? Function(ProductModel product)? switchProductFavorite,
+    TResult? Function(ProductModel product)? switchProductCart,
+  }) {
+    return switchProductCart?.call(product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ProductsSettings productsSettings)? changeSettings,
+    TResult Function(List<ProductsRequest> request)? getProducts,
+    TResult Function(ProductsRequest request)? getHomeProducts,
+    TResult Function(ProductModel product)? switchProductFavorite,
+    TResult Function(ProductModel product)? switchProductCart,
+    required TResult orElse(),
+  }) {
+    if (switchProductCart != null) {
+      return switchProductCart(product);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChangeSettingsEvent value) changeSettings,
+    required TResult Function(_GetProductsEvent value) getProducts,
+    required TResult Function(_GetHomeProductsEvent value) getHomeProducts,
+    required TResult Function(_SwitchProductFavoriteEvent value)
+        switchProductFavorite,
+    required TResult Function(_SwitchProductCartEvent value) switchProductCart,
+  }) {
+    return switchProductCart(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChangeSettingsEvent value)? changeSettings,
+    TResult? Function(_GetProductsEvent value)? getProducts,
+    TResult? Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult? Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult? Function(_SwitchProductCartEvent value)? switchProductCart,
+  }) {
+    return switchProductCart?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChangeSettingsEvent value)? changeSettings,
+    TResult Function(_GetProductsEvent value)? getProducts,
+    TResult Function(_GetHomeProductsEvent value)? getHomeProducts,
+    TResult Function(_SwitchProductFavoriteEvent value)? switchProductFavorite,
+    TResult Function(_SwitchProductCartEvent value)? switchProductCart,
+    required TResult orElse(),
+  }) {
+    if (switchProductCart != null) {
+      return switchProductCart(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SwitchProductCartEvent implements ProductsEvent {
+  const factory _SwitchProductCartEvent(final ProductModel product) =
+      _$SwitchProductCartEventImpl;
+
+  ProductModel get product;
+  @JsonKey(ignore: true)
+  _$$SwitchProductCartEventImplCopyWith<_$SwitchProductCartEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

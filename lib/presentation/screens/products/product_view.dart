@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shopease/domain/models/products_model.dart';
 import 'package:shopease/presentation/resources/widgets_manager.dart';
+import 'package:shopease/presentation/screens/authentication/auth_bloc/auth_bloc.dart';
 import 'package:shopease/presentation/screens/error_screen/error_screen.dart';
 import 'package:shopease/presentation/screens/products/products_bloc/products_bloc.dart';
 
@@ -50,24 +51,29 @@ class ProductView extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: FutureBuilder(
           future: context.read<ProductsBloc>().initRecommendedProducts(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
+          builder: (context, state) {
+            if (state.hasError) {
               return ErrorScreen(
-                message: snapshot.error.toString(),
+                message: state.error.toString(),
               );
             }
-            switch (snapshot.connectionState) {
+            switch (state.connectionState) {
               case ConnectionState.waiting:
                 return productViewShimmer(context);
               case ConnectionState.done:
-                return productView(
-                  context: context,
-                  product: item,
-                  products: context
-                      .watch<ProductsBloc>()
-                      .recommendedProducts!
-                      .products,
-                );
+                if (state.data == null) {
+                  return error("No Product yet");
+                } else if (state.hasData) {
+                  return productView(
+                    context: context,
+                    product: item,
+                    products: state.data!.products,
+                  );
+                } else if (state.hasError) {
+                  return error("error occured ${state.error.toString()}");
+                } else {
+                  return error("unknown error occured");
+                }
               default:
                 return loading(context);
             }
@@ -151,10 +157,16 @@ Widget productView({
           ),
           WidgetManager.hoveringIconWidget(
             context: context,
-            isActive: product.isNew,
+            isActive: AuthBloc.checkFavorite(productId: product.sku.toString()),
             padding: const EdgeInsets.all(AppSize.s14),
             iconSize: AppSize.s14,
-            onPressed: () {},
+            onPressed: () {
+              context.read<ProductsBloc>().add(
+                    ProductsEvent.switchProductFavorite(
+                      product,
+                    ),
+                  );
+            },
           ),
         ],
       ),
@@ -216,7 +228,13 @@ Widget productView({
         width: double.infinity,
         height: AppSize.s48,
         margin: const EdgeInsets.all(AppMargin.m16),
-        onPressed: () {},
+        onPressed: () {
+          context.read<ProductsBloc>().add(
+                ProductsEvent.switchProductCart(
+                  product,
+                ),
+              );
+        },
         child: Text(
           AppStrings.addToCart.toUpperCase(),
           style: Theme.of(context).textTheme.bodySmall!.copyWith(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:shopease/presentation/resources/shared_preference_manager.dart';
 
 import 'assets_manager.dart';
@@ -26,6 +27,11 @@ class ThemeManager {
 
   ThemeData getApplicationTheme({bool? dark}) {
     if (dark ?? isDarkMode) {
+      /// Returns the dark theme
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ));
       return ThemeData(
         primaryColor: ColorManager.darkPrimary,
         primaryColorLight: ColorManager.lightPrimary,
@@ -34,6 +40,7 @@ class ThemeManager {
         splashColor: ColorManager.darkGrey.withOpacity(0.5),
         scaffoldBackgroundColor: ColorManager.darkBackground,
         canvasColor: ColorManager.darkBackground,
+        cardColor: ColorManager.black,
         colorScheme: const ColorScheme.dark(
           primary: ColorManager.darkPrimary,
           secondary: ColorManager.darkPrimary,
@@ -268,6 +275,11 @@ class ThemeManager {
         ],
       );
     } else {
+      /// Returns the light theme
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ));
       return ThemeData(
         primaryColor: ColorManager.lightPrimary,
         primaryColorLight: ColorManager.lightPrimary,
@@ -276,6 +288,7 @@ class ThemeManager {
         splashColor: ColorManager.lightWhite.withOpacity(0.5),
         scaffoldBackgroundColor: ColorManager.lightBackground,
         canvasColor: ColorManager.lightBackground,
+        cardColor: ColorManager.white,
         colorScheme: const ColorScheme.light(
           primary: ColorManager.lightPrimary,
           secondary: ColorManager.lightPrimary,
